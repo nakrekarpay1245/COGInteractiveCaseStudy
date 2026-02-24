@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
-using RKNTemplate.Core;
+using _Game.Core;
 
-namespace RKNTemplate.Audio
+namespace _Game.Audio
 {
     public class AudioManager : Singleton<AudioManager>
     {

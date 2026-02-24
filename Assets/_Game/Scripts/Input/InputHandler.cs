@@ -1,7 +1,7 @@
 using UnityEngine;
-using RKNTemplate.Core;
+using _Game.Core;
 
-namespace RKNTemplate.Input
+namespace _Game.Input
 {
     public class InputHandler : Singleton<InputHandler>
     {

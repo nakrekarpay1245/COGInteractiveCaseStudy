@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using _Game.Core;
 
-namespace RKNTemplate.Core
+namespace _Game.Particle
 {
     public class ParticleManager : Singleton<ParticleManager>
     {

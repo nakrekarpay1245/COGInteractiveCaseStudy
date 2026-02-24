@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RKNTemplate.Core
+namespace _Game.Particle
 {
     [System.Serializable]
     public class ParticleData

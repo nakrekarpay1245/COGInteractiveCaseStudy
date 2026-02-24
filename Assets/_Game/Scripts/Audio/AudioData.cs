@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RKNTemplate.Audio
+namespace _Game.Audio
 {
     public enum PlayMode
     {

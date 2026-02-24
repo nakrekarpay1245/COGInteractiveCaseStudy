@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityToolbarExtender;
 
-namespace RKNTemplate.Editor
+namespace _Game.Editor
 {
     [InitializeOnLoad]
     public static class SceneSwitcherEditor

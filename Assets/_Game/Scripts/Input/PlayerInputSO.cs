@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RKNTemplate.Input
+namespace _Game.Input
 {
     [CreateAssetMenu(fileName = "PlayerInput", menuName = "Input/PlayerInput")]
     public class PlayerInputSO : ScriptableObject

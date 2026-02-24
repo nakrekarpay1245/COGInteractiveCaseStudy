@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RKNTemplate.Core
+namespace _Game.Core
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

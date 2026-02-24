@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace RKNTemplate.Core
+namespace _Game.Particle
 {
     public class ParticlePlayer : MonoBehaviour
     {

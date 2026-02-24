@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityToolbarExtender;
 
-namespace RKNTemplate.Editor
+namespace _Game.Editor
 {
     [InitializeOnLoad]
     public class TimeScaleController

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace RKNTemplate.Audio
+namespace _Game.Audio
 {
     public class AudioPlayer : MonoBehaviour
     {
