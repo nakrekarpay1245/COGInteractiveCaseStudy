@@ -1,15 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TriInspector;
+using _Game.LevelSystem;
 
 namespace _Game.TileGridSystem
 {
     public class TileGridFrame : MonoBehaviour
     {
         [Title("TileGridFrame Settings")]
-        [Header("References")]
-        [SerializeField] private TileGrid _tileGrid;
-
         [Header("Frame Prefabs")]
         [SerializeField] private GameObject _cornerPrefab;
         [SerializeField] private GameObject _edgePrefab;
@@ -22,29 +20,26 @@ namespace _Game.TileGridSystem
         {
             if (_generateOnStart)
             {
-                Initialize();
+                Initialize(LevelManager.Instance.TileGrid);
             }
         }
 
         [Button("Generate Frame (Runtime)")]
-        public void Initialize()
+        public void Initialize(TileGrid tileGrid)
         {
-            // TileGrid tileGrid = LevelManager.Instance.CurrentLevel.TileGrid;
-
-            if (_tileGrid == null)
+            if (tileGrid == null)
             {
                 Debug.LogError("TileGrid reference is missing. Cannot generate frame.");
                 return;
             }
 
             ClearExistingFrames();
-            GenerateFrame(_tileGrid);
+            GenerateFrame(tileGrid);
         }
 
         private void GenerateFrame(TileGrid tileGrid)
         {
-            // Vector2Int gridSize = LevelManager.Instance.CurrentLevel.GridSize;
-            Vector2Int gridSize = _tileGrid.GridSize;
+            Vector2Int gridSize = tileGrid.GridSize;
 
             // Corners
             CreateCorner(0, 0, 270);                         // Bottom-left
@@ -69,8 +64,7 @@ namespace _Game.TileGridSystem
 
         private void CreateCorner(int x, int y, float rotation)
         {
-            // Tile tile = LevelManager.Instance.CurrentLevel.TileGrid.GetTileWithGridPosition(x, y);
-            Tile tile = _tileGrid.GetTileWithGridPosition(x, y);
+            Tile tile = LevelManager.Instance.TileGrid.GetTileWithGridPosition(x, y);
             if (tile == null) return;
 
             Vector3 pos = tile.transform.position;
@@ -81,8 +75,7 @@ namespace _Game.TileGridSystem
 
         private void CreateEdge(int x, int y, float rotation)
         {
-            // Tile tile = LevelManager.Instance.CurrentLevel.TileGrid.GetTileWithGridPosition(x, y);
-            Tile tile = _tileGrid.GetTileWithGridPosition(x, y);
+            Tile tile = LevelManager.Instance.TileGrid.GetTileWithGridPosition(x, y);
             if (tile == null) return;
 
             Vector3 pos = tile.transform.position;
