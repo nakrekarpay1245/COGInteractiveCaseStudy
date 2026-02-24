@@ -5,10 +5,16 @@ namespace _Game.Input
 {
     public class InputHandler : Singleton<InputHandler>
     {
-        [Header("Input Settings")] [SerializeField, Tooltip("Scriptable object for managing player input.")]
+        [Header("Input Settings")] 
+        [SerializeField, Tooltip("Scriptable object for managing player input.")]
         private PlayerInputSO _playerInput;
+        
+        [SerializeField, Tooltip("Minimum swipe distance to register as swipe.")]
+        private float _minSwipeDistance = 50f;
 
         private bool _isInputLocked = false;
+        private Vector2 _startTouchPosition;
+        private bool _isSwiping = false;
 
         public bool IsInputLocked
         {
@@ -26,33 +32,40 @@ namespace _Game.Input
 
         private void ProcessInput()
         {
-            if (UnityEngine.Input.GetMouseButtonDown(0) || UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                HandleDown();
+                _startTouchPosition = UnityEngine.Input.mousePosition;
+                _isSwiping = true;
             }
-            else if (UnityEngine.Input.GetMouseButton(0) || UnityEngine.Input.GetKey(KeyCode.Space))
+            else if (UnityEngine.Input.GetMouseButtonUp(0) && _isSwiping)
             {
-                HandleHeld();
-            }
-            else if (UnityEngine.Input.GetMouseButtonUp(0) || UnityEngine.Input.GetKeyUp(KeyCode.Space))
-            {
-                HandleUp();
+                Vector2 endTouchPosition = UnityEngine.Input.mousePosition;
+                DetectSwipe(_startTouchPosition, endTouchPosition);
+                _isSwiping = false;
             }
         }
 
-        private void HandleDown()
+        private void DetectSwipe(Vector2 startPosition, Vector2 endPosition)
         {
-            _playerInput.SetDown();
-        }
+            Vector2 swipeDelta = endPosition - startPosition;
+            
+            if (swipeDelta.magnitude < _minSwipeDistance)
+                return;
 
-        private void HandleHeld()
-        {
-            _playerInput.SetHeld();
-        }
-
-        private void HandleUp()
-        {
-            _playerInput.SetUp();
+            if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
+            {
+                if (swipeDelta.x > 0)
+                    _playerInput.SetSwipeRight();
+                else
+                    _playerInput.SetSwipeLeft();
+            }
+            else
+            {
+                if (swipeDelta.y > 0)
+                    _playerInput.SetSwipeUp();
+                else
+                    _playerInput.SetSwipeDown();
+            }
         }
 
         public void UnlockInput()

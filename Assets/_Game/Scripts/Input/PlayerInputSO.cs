@@ -6,27 +6,34 @@ namespace _Game.Input
     [CreateAssetMenu(fileName = "PlayerInput", menuName = "Input/PlayerInput")]
     public class PlayerInputSO : ScriptableObject
     {
-        [SerializeField] private UnityEvent _onDown = new UnityEvent();
-        [SerializeField] private UnityEvent _onHeld = new UnityEvent();
-        [SerializeField] private UnityEvent _onUp = new UnityEvent();
+        [SerializeField] private UnityEvent _onSwipeLeft = new UnityEvent();
+        [SerializeField] private UnityEvent _onSwipeRight = new UnityEvent();
+        [SerializeField] private UnityEvent _onSwipeUp = new UnityEvent();
+        [SerializeField] private UnityEvent _onSwipeDown = new UnityEvent();
         
-        public UnityEvent OnDown => _onDown;
-        public UnityEvent OnHeld => _onHeld;
-        public UnityEvent OnUp => _onUp;
+        public UnityEvent OnSwipeLeft => _onSwipeLeft;
+        public UnityEvent OnSwipeRight => _onSwipeRight;
+        public UnityEvent OnSwipeUp => _onSwipeUp;
+        public UnityEvent OnSwipeDown => _onSwipeDown;
         
-        public void SetDown()
+        public void SetSwipeLeft()
         {
-            _onDown?.Invoke();
+            _onSwipeLeft?.Invoke();
         }
 
-        public void SetHeld()
+        public void SetSwipeRight()
         {
-            _onHeld?.Invoke();
+            _onSwipeRight?.Invoke();
         }
 
-        public void SetUp()
+        public void SetSwipeUp()
         {
-            _onUp?.Invoke();
+            _onSwipeUp?.Invoke();
+        }
+
+        public void SetSwipeDown()
+        {
+            _onSwipeDown?.Invoke();
         }
     }
 }
