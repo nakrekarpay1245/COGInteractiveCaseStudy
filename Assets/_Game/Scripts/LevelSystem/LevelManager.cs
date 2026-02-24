@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Game.BallSystem;
 using _Game.Core;
+using _Game.ObstacleSystem;
 using _Game.TileGridSystem;
 using TriInspector;
 using UnityEngine;
@@ -10,8 +12,13 @@ namespace _Game.LevelSystem
     public class LevelManager : Singleton<LevelManager>
     {
         [Title("References")]
+        [Header("Grid")]
         [SerializeField] private TileGrid _tileGrid;
         [SerializeField] private TileGridFrame _tileGridFrame;
+        
+        [Header("Managers")]
+        [SerializeField] private BallManager _ballManager;
+        [SerializeField] private ObstacleManager _obstacleManager;
         
         [Title("Level Data")]
         [SerializeField] private List<LevelDataSO> _levelList;
@@ -29,6 +36,16 @@ namespace _Game.LevelSystem
             if (_tileGridFrame == null)
             {
                 Debug.LogError("TileGridFrame reference is missing!");
+            }
+            
+            if (_ballManager == null)
+            {
+                Debug.LogError("BallManager reference is missing!");
+            }
+            
+            if (_obstacleManager == null)
+            {
+                Debug.LogError("ObstacleManager reference is missing!");
             }
             
             if (_levelList == null || _levelList.Count == 0)
@@ -59,6 +76,8 @@ namespace _Game.LevelSystem
             
             _tileGrid.Initialize(currentLevel.GridSize);
             _tileGridFrame.Initialize(_tileGrid);
+            _ballManager.Initialize(currentLevel.BallPositions);
+            _obstacleManager.Initialize(currentLevel.ObstaclePositions);
         }
     }
 }
