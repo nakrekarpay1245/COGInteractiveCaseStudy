@@ -23,6 +23,7 @@ namespace _Game.TileGridSystem
             ((float)_gridSize.y) / 2f
          ) - (Vector2.right * 0.5f);
 
+        [Button]
         public void Initialize(Vector2Int gridSize)
         {
             _gridSize = gridSize;
@@ -59,7 +60,8 @@ namespace _Game.TileGridSystem
             // RichLogger.Log("TileGrid initialized successfully.");
         }
 
-        public void ClearTileGrid()
+        [Button]
+        private void ClearTileGrid()
         {
             if (Application.isPlaying)
             {
@@ -78,7 +80,7 @@ namespace _Game.TileGridSystem
             }
         }
 
-        public void CreateAllTiles()
+        private void CreateAllTiles()
         {
             _tileGrid = new Tile[_gridSize.x, _gridSize.y];
 
@@ -108,13 +110,13 @@ namespace _Game.TileGridSystem
         private Vector2 GetTilePosition(int x, int y)
         {
             Vector2 basePosition = new Vector2(x, y);
-            
+
             if (_centerGridAtOrigin)
             {
                 Vector2 centerOffset = new Vector2((_gridSize.x - 1) * 0.5f, (_gridSize.y - 1) * 0.5f);
                 basePosition -= centerOffset;
             }
-            
+
             return basePosition + (Vector2)transform.position;
         }
 
@@ -196,13 +198,15 @@ namespace _Game.TileGridSystem
 
 #if UNITY_EDITOR
         #region EDITOR FUNCTIONS
+        [Button]
         public void InitializeForEditor()
         {
             ClearForEditor();
             CreateAllTiles();
         }
 
-        public void ClearForEditor()
+        [Button]
+        private void ClearForEditor()
         {
             if (!Application.isPlaying)
             {
@@ -237,7 +241,7 @@ namespace _Game.TileGridSystem
             return tile;
         }
 
-        public void AutoBuildGridFromChildren()
+        private void AutoBuildGridFromChildren()
         {
             _tileGrid = new Tile[_gridSize.x, _gridSize.y];
 
@@ -265,7 +269,7 @@ namespace _Game.TileGridSystem
             }
         }
 
-        public Tile ClosestTileForEditor(Vector2 worldPosition)
+        private Tile ClosestTileForEditor(Vector2 worldPosition)
         {
             AutoBuildGridFromChildren();
             return _tileGrid.Cast<Tile>()
