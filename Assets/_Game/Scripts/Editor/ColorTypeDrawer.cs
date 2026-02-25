@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using _Game.LevelSystem;
+using _Game.ColorSystem;
 
 namespace _Game.Editor
 {

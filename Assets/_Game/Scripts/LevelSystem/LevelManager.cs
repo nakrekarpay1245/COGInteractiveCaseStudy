@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _Game.BallSystem;
+using _Game.ColorSystem;
 using _Game.Core;
 using _Game.ObstacleSystem;
 using _Game.TileGridSystem;
@@ -19,6 +20,7 @@ namespace _Game.LevelSystem
         [Header("Managers")]
         [SerializeField] private BallManager _ballManager;
         [SerializeField] private ObstacleManager _obstacleManager;
+        [SerializeField] private ColorManager _colorManager;
         
         [Title("Level Data")]
         [SerializeField] private List<LevelDataSO> _levelList;
@@ -29,6 +31,7 @@ namespace _Game.LevelSystem
         public TileGrid TileGrid { get => _tileGrid; }
         public List<LevelDataSO> LevelList { get => _levelList; }
         public GridPathfinding GridPathfinding { get => _gridPathfinding; }
+        public ColorManager ColorManager { get => _colorManager; }
 
 #if UNITY_EDITOR
         public static int EditorStartLevelIndex = 0;
@@ -87,6 +90,7 @@ namespace _Game.LevelSystem
             LevelDataSO currentLevel = _levelList[_currentLevelIndex];
             
             _tileGrid.Initialize(currentLevel.GridSize);
+            _tileGrid.SetPaintColor(currentLevel.LevelColor);
             _tileGridFrame.Initialize(_tileGrid);
 
             _gridPathfinding = new GridPathfinding();

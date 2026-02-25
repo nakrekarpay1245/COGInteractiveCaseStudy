@@ -371,6 +371,7 @@ Transform:
   - {fileID: 1835673736}
   - {fileID: 22178754}
   - {fileID: 1679258456}
+  - {fileID: 1530502013}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432219565
@@ -499,7 +500,7 @@ Camera:
   m_GameObject: {fileID: 440834723}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -550,7 +551,7 @@ Transform:
   m_GameObject: {fileID: 440834723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -725,6 +726,7 @@ MonoBehaviour:
   _tileGridFrame: {fileID: 2029735620}
   _ballManager: {fileID: 1835673737}
   _obstacleManager: {fileID: 22178755}
+  _colorManager: {fileID: 0}
   _levelList:
   - {fileID: 11400000, guid: 6817f044632ee074dbe7ee6693465540, type: 2}
 --- !u!1 &1247881012
@@ -834,6 +836,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioDataList: []
+--- !u!1 &1530502012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1530502013}
+  - component: {fileID: 1530502014}
+  m_Layer: 0
+  m_Name: ColorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1530502013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530502012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 226304198}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1530502014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530502012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce456e52d677fa4b8a7066b2d578b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorPairs:
+  - _colorType: 0
+    _color: {r: 0, g: 0, b: 0, a: 1}
+  - _colorType: 1
+    _color: {r: 0.31764707, g: 0, b: 0, a: 1}
+  - _colorType: 2
+    _color: {r: 0, g: 0, b: 0.31764707, a: 1}
+  - _colorType: 3
+    _color: {r: 0, g: 0.31764707, b: 0, a: 1}
+  - _colorType: 4
+    _color: {r: 0.31764707, g: 0.29411766, b: 0.003921569, a: 1}
+  - _colorType: 5
+    _color: {r: 0.31764707, g: 0.16078432, b: 0, a: 1}
+  - _colorType: 6
+    _color: {r: 0.16078432, g: 0, b: 0.31764707, a: 1}
+  - _colorType: 7
+    _color: {r: 1, g: 0, b: 0.49019608, a: 1}
 --- !u!1 &1591785620
 GameObject:
   m_ObjectHideFlags: 0

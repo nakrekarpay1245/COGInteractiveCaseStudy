@@ -1,4 +1,5 @@
 using _Game.BallSystem;
+using _Game.ColorSystem;
 using _Game.ObstacleSystem;
 using _Game.Utilities;
 using TriInspector;
@@ -14,13 +15,25 @@ namespace _Game.TileGridSystem
         [SerializeField, ReadOnly] private TileGrid _tileGrid;
         [SerializeField, ReadOnly] private Obstacle _obstacle;
         [SerializeField, ReadOnly] private Ball _ball;
+        [SerializeField] private TileSpriteHandler _tileSpriteHandler;
+        
+        private bool _isPainted;
 
         public Obstacle Obstacle { get => _obstacle; }
         public Ball Ball { get => _ball; }
+        public bool IsPainted { get => _isPainted; }
+
+        void Awake()
+        {
+            if(_tileSpriteHandler== null)
+            {
+                _tileSpriteHandler = GetComponent<TileSpriteHandler>();
+            }
+        }
 
         public void Initialize()
         {
-            // RichLogger.Log($"{name} initialized (Play Mode)!");
+            _tileSpriteHandler.Initialize();
         }
 
         public void SetTileGrid(TileGrid tileGrid)
@@ -36,6 +49,17 @@ namespace _Game.TileGridSystem
         public void SetBall(Ball ball)
         {
             _ball = ball;
+        }
+
+        public void SetPaintColor(ColorType colorType)
+        {
+            _tileSpriteHandler.SetPaintColor(colorType);
+        }
+
+        public void Paint()
+        {
+            _isPainted = true;
+            _tileSpriteHandler.Paint();
         }
 
         public Tile GetNextTile(Vector2 direction)

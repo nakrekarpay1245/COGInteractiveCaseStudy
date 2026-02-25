@@ -1,4 +1,4 @@
-namespace _Game.LevelSystem
+namespace _Game.ColorSystem
 {
     public enum ColorType
     {

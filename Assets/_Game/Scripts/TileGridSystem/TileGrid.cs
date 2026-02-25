@@ -3,6 +3,7 @@ using TriInspector;
 using UnityEditor;
 using System.Linq;
 using _Game.Utilities;
+using _Game.ColorSystem;
 
 namespace _Game.TileGridSystem
 {
@@ -59,6 +60,14 @@ namespace _Game.TileGridSystem
             }
 
             // RichLogger.Log("TileGrid initialized successfully.");
+        }
+
+        public void SetPaintColor(ColorType colorType)
+        {
+            foreach (Tile tile in _tileGrid)
+            {
+                tile.SetPaintColor(colorType);
+            }
         }
 
         [Button]
