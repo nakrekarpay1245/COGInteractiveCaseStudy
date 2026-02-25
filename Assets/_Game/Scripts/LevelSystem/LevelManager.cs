@@ -24,10 +24,19 @@ namespace _Game.LevelSystem
         [SerializeField] private List<LevelDataSO> _levelList;
         
         private int _currentLevelIndex;
-        public TileGrid TileGrid { get => _tileGrid; set => _tileGrid = value; }
+        public TileGrid TileGrid { get => _tileGrid; }
+        public List<LevelDataSO> LevelList { get => _levelList; }
+
+#if UNITY_EDITOR
+        public static int EditorStartLevelIndex = 0;
+#endif
 
         private void Awake()
         {
+#if UNITY_EDITOR
+            _currentLevelIndex = EditorStartLevelIndex;
+#endif
+
             if (_tileGrid == null)
             {
                 Debug.LogError("TileGrid reference is missing!");
@@ -76,8 +85,8 @@ namespace _Game.LevelSystem
             
             _tileGrid.Initialize(currentLevel.GridSize);
             _tileGridFrame.Initialize(_tileGrid);
-            _ballManager.Initialize(currentLevel.BallPositions);
-            _obstacleManager.Initialize(currentLevel.ObstaclePositions);
+            _ballManager.Initialize(currentLevel.BallPositions, _tileGrid);
+            _obstacleManager.Initialize(currentLevel.ObstaclePositions, _tileGrid);
         }
     }
 }
