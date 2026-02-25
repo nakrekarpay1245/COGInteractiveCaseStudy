@@ -30,7 +30,7 @@ namespace _Game.ObstacleSystem
 
                 Vector2 worldPosition = tile.transform.position;
                 Obstacle obstacle = _obstacleSpawner.SpawnObstacle(worldPosition, transform);
-                obstacle.Initialize();
+                obstacle.Initialize(tileGrid);
                 _spawnedObstacles.Add(obstacle);
             }
         }

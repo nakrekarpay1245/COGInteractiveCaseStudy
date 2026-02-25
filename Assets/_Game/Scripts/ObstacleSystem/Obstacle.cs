@@ -1,3 +1,4 @@
+using _Game.TileGridSystem;
 using _Game.Utilities;
 using TriInspector;
 using UnityEngine;
@@ -9,11 +10,26 @@ namespace _Game.ObstacleSystem
         [Title("Obstacle")]
         [SerializeField, ReadOnly] private Vector2 _gridPosition;
 
+        [SerializeField, ReadOnly] private TileGrid _tileGrid;
+        [SerializeField, ReadOnly] private Tile _tile;
+
         public Vector2 GridPosition { get => _gridPosition; set => _gridPosition = value; }
 
-        public void Initialize()
+        public void Initialize(TileGrid tileGrid)
         {
-            // RichLogger.Log($"{name} initialized (Play Mode)!");
+            _tileGrid = tileGrid;
+            SetTileReference();
+        }
+
+        private void SetTileReference()
+        {
+            if (_tileGrid == null) return;
+
+            _tile = _tileGrid.ClosestTile(transform.position);
+            if (_tile != null)
+            {
+                _tile.SetObstacle(this);
+            }
         }
 
 #if UNITY_EDITOR

@@ -1,3 +1,4 @@
+using _Game.ObstacleSystem;
 using _Game.Utilities;
 using TriInspector;
 using UnityEngine;
@@ -9,9 +10,10 @@ namespace _Game.TileGridSystem
         [Title("Tile")]
         [SerializeField, ReadOnly] private Vector2 _gridPosition;
 
-        public Vector2 GridPosition { get => _gridPosition; set => _gridPosition = value; }
+        [SerializeField, ReadOnly] private TileGrid _tileGrid;
+        [SerializeField, ReadOnly] private Obstacle _obstacle;
 
-        private TileGrid _tileGrid;
+        public Obstacle Obstacle { get => _obstacle; }
 
         public void Initialize()
         {
@@ -23,6 +25,11 @@ namespace _Game.TileGridSystem
             _tileGrid = tileGrid;
         }
 
+        public void SetObstacle(Obstacle obstacle)
+        {
+            _obstacle = obstacle;
+        }
+
         public Tile GetNextTile(Vector2 direction)
         {
             if (_tileGrid == null) return null;
@@ -31,7 +38,11 @@ namespace _Game.TileGridSystem
             if (currentGridPos.x == -1) return null;
 
             Vector2Int nextGridPos = currentGridPos + new Vector2Int((int)direction.x, (int)direction.y);
-            return _tileGrid.GetTileWithGridPosition(nextGridPos.x, nextGridPos.y);
+            Tile nextTile = _tileGrid.GetTileWithGridPosition(nextGridPos.x, nextGridPos.y);
+
+            if (nextTile != null && nextTile.Obstacle != null) return null;
+
+            return nextTile;
         }
 
         public Tile GetNextTile(Tile previousTile)
@@ -46,7 +57,11 @@ namespace _Game.TileGridSystem
             Vector2Int direction = currentGridPos - previousGridPos;
             Vector2Int nextGridPos = currentGridPos + direction;
 
-            return _tileGrid.GetTileWithGridPosition(nextGridPos.x, nextGridPos.y);
+            Tile nextTile = _tileGrid.GetTileWithGridPosition(nextGridPos.x, nextGridPos.y);
+
+            if (nextTile != null && nextTile.Obstacle != null) return null;
+
+            return nextTile;
         }
 
 #if UNITY_EDITOR
