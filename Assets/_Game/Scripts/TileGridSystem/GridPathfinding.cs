@@ -41,7 +41,7 @@ namespace _Game.TileGridSystem
                 currentTile = nextTile;
             }
 
-            RichLogger.Log($"Path found with {path.Count} tiles");
+            // RichLogger.Log($"Path found with {path.Count} tiles");
 
             return path;
         }

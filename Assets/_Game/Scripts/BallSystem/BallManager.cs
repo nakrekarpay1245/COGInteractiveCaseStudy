@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using _Game.Input;
 using _Game.TileGridSystem;
 using _Game.Utilities;
@@ -70,9 +71,13 @@ namespace _Game.BallSystem
 
         private void MoveBalls(Vector2 direction)
         {
-            foreach (Ball ball in _spawnedBalls)
+            IEnumerable<Ball> sortedBalls = direction.x > 0 ? _spawnedBalls.OrderByDescending(ball => ball.transform.position.x) :
+                                            direction.x < 0 ? _spawnedBalls.OrderBy(ball => ball.transform.position.x) :
+                                            direction.y > 0 ? _spawnedBalls.OrderByDescending(ball => ball.transform.position.y) :
+                                            _spawnedBalls.OrderBy(ball => ball.transform.position.y);
+
+            foreach (Ball ball in sortedBalls)
             {
-                // RichLogger.Log($"Moving {ball.name} in direction {direction}");
                 ball.Move(direction, _gridPathfinding);
             }
         }
@@ -93,7 +98,7 @@ namespace _Game.BallSystem
 
                 Vector2 worldPosition = tile.transform.position;
                 Ball ball = _ballSpawner.SpawnBall(worldPosition, transform);
-                ball.Initialize();
+                ball.Initialize(tileGrid);
                 _spawnedBalls.Add(ball);
             }
         }

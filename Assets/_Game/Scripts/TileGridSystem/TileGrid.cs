@@ -160,7 +160,7 @@ namespace _Game.TileGridSystem
                 return _tileGrid[x, y];
             }
 
-            RichLogger.LogWarning($"Requested grid position [{x},{y}] is out of bounds.");
+            // RichLogger.LogWarning($"Requested grid position [{x},{y}] is out of bounds.");
             return null;
         }
 

@@ -1,3 +1,4 @@
+using _Game.BallSystem;
 using _Game.ObstacleSystem;
 using _Game.Utilities;
 using TriInspector;
@@ -12,8 +13,10 @@ namespace _Game.TileGridSystem
 
         [SerializeField, ReadOnly] private TileGrid _tileGrid;
         [SerializeField, ReadOnly] private Obstacle _obstacle;
+        [SerializeField, ReadOnly] private Ball _ball;
 
         public Obstacle Obstacle { get => _obstacle; }
+        public Ball Ball { get => _ball; }
 
         public void Initialize()
         {
@@ -30,6 +33,11 @@ namespace _Game.TileGridSystem
             _obstacle = obstacle;
         }
 
+        public void SetBall(Ball ball)
+        {
+            _ball = ball;
+        }
+
         public Tile GetNextTile(Vector2 direction)
         {
             if (_tileGrid == null) return null;
@@ -41,6 +49,7 @@ namespace _Game.TileGridSystem
             Tile nextTile = _tileGrid.GetTileWithGridPosition(nextGridPos.x, nextGridPos.y);
 
             if (nextTile != null && nextTile.Obstacle != null) return null;
+            if (nextTile != null && nextTile.Ball != null) return null;
 
             return nextTile;
         }
@@ -60,6 +69,7 @@ namespace _Game.TileGridSystem
             Tile nextTile = _tileGrid.GetTileWithGridPosition(nextGridPos.x, nextGridPos.y);
 
             if (nextTile != null && nextTile.Obstacle != null) return null;
+            if (nextTile != null && nextTile.Ball != null) return null;
 
             return nextTile;
         }
