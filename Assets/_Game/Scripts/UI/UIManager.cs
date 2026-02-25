@@ -13,7 +13,6 @@ namespace _Game.UI
         
         [Header("Menus")]
         [SerializeField] private WinMenu _winMenu;
-        [SerializeField] private LoseMenu _loseMenu;
         [SerializeField] private SettingsMenu _settingsMenu;
         [SerializeField] private RetryMenu _retryMenu;
 
@@ -32,9 +31,6 @@ namespace _Game.UI
         {
             if (_winMenu != null)
                 _winMenu.gameObject.SetActive(false);
-
-            if (_loseMenu != null)
-                _loseMenu.gameObject.SetActive(false);
 
             if (_settingsMenu != null)
                 _settingsMenu.gameObject.SetActive(false);
@@ -81,13 +77,7 @@ namespace _Game.UI
             if (_winMenu != null)
                 _winMenu.Open();
         }
-
-        public void ShowLoseMenu()
-        {
-            if (_loseMenu != null)
-                _loseMenu.Open();
-        }
-
+        
         public void ShowRetryMenu()
         {
             if (_retryMenu != null)
