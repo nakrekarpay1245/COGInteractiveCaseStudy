@@ -1,6 +1,8 @@
 using UnityEngine;
 using TriInspector;
 using UnityEditor;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using _Game.Utilities;
 using _Game.ColorSystem;
@@ -19,13 +21,22 @@ namespace _Game.TileGridSystem
         private Tile[,] _tileGrid;
         public Tile[,] PublicTileGrid { get => _tileGrid; }
 
+        [SerializeField, ReadOnly] private List<Tile> _allTiles;
+        [SerializeField, ReadOnly] private List<Tile> _freeTiles;
+        [SerializeField, ReadOnly] private List<Tile> _paintedTiles;
+
+        public int FreeTilesCount { get => _freeTiles != null ? _freeTiles.Count : 0; }
+        public int PaintedTilesCount { get => _paintedTiles != null ? _paintedTiles.Count : 0; }
+
+        public event Action<int, int> OnTilePainted;
+
         public Vector2 CenterTileWorldPosition => new Vector2(
              ((float)_gridSize.x) / 2f,
             ((float)_gridSize.y) / 2f
          ) - (Vector2.right * 0.5f);
 
         [Button]
-        public void Initialize(Vector2Int gridSize)
+        public void Initialize(Vector2Int gridSize, ColorType colorType)
         {
             _gridSize = gridSize;
 
@@ -33,6 +44,9 @@ namespace _Game.TileGridSystem
             CreateAllTiles();
 
             _tileGrid = new Tile[_gridSize.x, _gridSize.y];
+            _allTiles = new List<Tile>();
+            _freeTiles = new List<Tile>();
+            _paintedTiles = new List<Tile>();
 
             Tile[] tileArray = GetComponentsInChildren<Tile>();
 
@@ -44,7 +58,7 @@ namespace _Game.TileGridSystem
 
             foreach (Tile tile in tileArray)
             {
-                string tileName = tile.name;  // Expected format: Tile [x,y]
+                string tileName = tile.name;
 
                 int x, y;
                 if (TryGetTileCoordinates(tileName, out x, out y))
@@ -52,6 +66,7 @@ namespace _Game.TileGridSystem
                     _tileGrid[x, y] = tile;
                     tile.SetTileGrid(this);
                     tile.Initialize();
+                    _allTiles.Add(tile);
                 }
                 else
                 {
@@ -59,10 +74,23 @@ namespace _Game.TileGridSystem
                 }
             }
 
-            // RichLogger.Log("TileGrid initialized successfully.");
+            SetPaintColor(colorType);
         }
 
-        public void SetPaintColor(ColorType colorType)
+        public void UpdateFreeTiles()
+        {
+            _freeTiles.Clear();
+
+            foreach (Tile tile in _allTiles)
+            {
+                if (tile.Obstacle == null)
+                {
+                    _freeTiles.Add(tile);
+                }
+            }
+        }
+
+        private void SetPaintColor(ColorType colorType)
         {
             foreach (Tile tile in _tileGrid)
             {
@@ -204,6 +232,15 @@ namespace _Game.TileGridSystem
 
             RichLogger.LogWarning("Given tile was not found in the grid.");
             return Vector2Int.one * -1;
+        }
+
+        public void NotifyTilePainted(Tile tile)
+        {
+            if (_paintedTiles == null || _freeTiles == null) return;
+            if (_paintedTiles.Contains(tile)) return;
+
+            _paintedTiles.Add(tile);
+            OnTilePainted?.Invoke(_paintedTiles.Count, _freeTiles.Count);
         }
 
 #if UNITY_EDITOR

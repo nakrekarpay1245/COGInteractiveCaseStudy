@@ -60,6 +60,7 @@ namespace _Game.TileGridSystem
         {
             _isPainted = true;
             _tileSpriteHandler.Paint();
+            _tileGrid?.NotifyTilePainted(this);
         }
 
         public Tile GetNextTile(Vector2 direction)

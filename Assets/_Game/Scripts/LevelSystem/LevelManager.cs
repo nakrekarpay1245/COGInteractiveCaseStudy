@@ -21,6 +21,8 @@ namespace _Game.LevelSystem
         [SerializeField] private BallManager _ballManager;
         [SerializeField] private ObstacleManager _obstacleManager;
         [SerializeField] private ColorManager _colorManager;
+        [SerializeField] private ProgressionManager _progressionManager;
+        [SerializeField] private ProgressionBar _progressionBar;
         
         [Title("Level Data")]
         [SerializeField] private List<LevelDataSO> _levelList;
@@ -32,6 +34,7 @@ namespace _Game.LevelSystem
         public List<LevelDataSO> LevelList { get => _levelList; }
         public GridPathfinding GridPathfinding { get => _gridPathfinding; }
         public ColorManager ColorManager { get => _colorManager; }
+        public ProgressionManager ProgressionManager { get => _progressionManager; }
 
 #if UNITY_EDITOR
         public static int EditorStartLevelIndex = 0;
@@ -88,16 +91,22 @@ namespace _Game.LevelSystem
         private void InitializeGrid()
         {            
             LevelDataSO currentLevel = _levelList[_currentLevelIndex];
+            Color levelColor = _colorManager.GetColor(currentLevel.LevelColor);
             
-            _tileGrid.Initialize(currentLevel.GridSize);
-            _tileGrid.SetPaintColor(currentLevel.LevelColor);
+            _tileGrid.Initialize(currentLevel.GridSize, currentLevel.LevelColor);
             _tileGridFrame.Initialize(_tileGrid);
 
             _gridPathfinding = new GridPathfinding();
             _gridPathfinding.Initialize(_tileGrid);
 
-            _ballManager.Initialize(currentLevel.BallPositions, _tileGrid, _gridPathfinding);
             _obstacleManager.Initialize(currentLevel.ObstaclePositions, _tileGrid);
+
+            _tileGrid.UpdateFreeTiles();
+
+            _progressionManager.Initialize(levelColor, _tileGrid);
+            _progressionBar.Initialize(levelColor);
+
+            _ballManager.Initialize(currentLevel.BallPositions, _tileGrid, _gridPathfinding);
         }
     }
 }
