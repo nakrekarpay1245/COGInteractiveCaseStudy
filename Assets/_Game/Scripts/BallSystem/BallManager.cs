@@ -43,7 +43,7 @@ namespace _Game.BallSystem
 
         private void HandleSwipeLeft()
         {
-            RichLogger.Log("Handling swipe left");
+            // RichLogger.Log("Handling swipe left");
 
             MoveBalls(Vector2.left);
         }
