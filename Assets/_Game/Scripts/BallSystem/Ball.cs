@@ -25,6 +25,7 @@ namespace _Game.BallSystem
         {
             _tileGrid = tileGrid;
             SetTileReference();
+            PaintStartingTile();
         }
 
         private void SetTileReference()
@@ -35,6 +36,14 @@ namespace _Game.BallSystem
             if (_tile != null)
             {
                 _tile.SetBall(this);
+            }
+        }
+
+        private void PaintStartingTile()
+        {
+            if (_tile != null)
+            {
+                _tile.Paint();
             }
         }
 
@@ -65,11 +74,27 @@ namespace _Game.BallSystem
 
         private IEnumerator MoveCoroutine(List<Vector3> path)
         {
+            int currentPathIndex = 0;
+            
             Vector3[] pathArray = path.ToArray();
-            Tween moveTween = transform.DOPath(pathArray, _moveDuration * path.Count, PathType.Linear)
+            Tween moveTween = null;
+            moveTween = transform.DOPath(pathArray, _moveDuration * path.Count, PathType.Linear)
                 .SetEase(Ease.Linear)
                 .SetAutoKill(true)
-                .SetLink(gameObject);
+                .SetLink(gameObject)
+                .OnUpdate(() =>
+                {
+                    int newPathIndex = Mathf.FloorToInt(moveTween.ElapsedPercentage() * path.Count);
+                    if (newPathIndex > currentPathIndex && newPathIndex < path.Count)
+                    {
+                        Tile currentTile = _tileGrid.ClosestTile(path[newPathIndex]);
+                        if (currentTile != null)
+                        {
+                            currentTile.Paint();
+                        }
+                        currentPathIndex = newPathIndex;
+                    }
+                });
 
             yield return moveTween.WaitForCompletion();
 
