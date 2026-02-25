@@ -13,7 +13,7 @@ namespace _Game.ObstacleSystem
 
         public void Initialize()
         {
-            RichLogger.Log($"{name} initialized (Play Mode)!");
+            // RichLogger.Log($"{name} initialized (Play Mode)!");
         }
 
 #if UNITY_EDITOR

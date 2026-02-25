@@ -49,6 +49,7 @@ namespace _Game.TileGridSystem
                 if (TryGetTileCoordinates(tileName, out x, out y))
                 {
                     _tileGrid[x, y] = tile;
+                    tile.SetTileGrid(this);
                     tile.Initialize();
                 }
                 else

@@ -24,8 +24,11 @@ namespace _Game.LevelSystem
         [SerializeField] private List<LevelDataSO> _levelList;
         
         private int _currentLevelIndex;
+        private GridPathfinding _gridPathfinding;
+
         public TileGrid TileGrid { get => _tileGrid; }
         public List<LevelDataSO> LevelList { get => _levelList; }
+        public GridPathfinding GridPathfinding { get => _gridPathfinding; }
 
 #if UNITY_EDITOR
         public static int EditorStartLevelIndex = 0;
@@ -85,7 +88,11 @@ namespace _Game.LevelSystem
             
             _tileGrid.Initialize(currentLevel.GridSize);
             _tileGridFrame.Initialize(_tileGrid);
-            _ballManager.Initialize(currentLevel.BallPositions, _tileGrid);
+
+            _gridPathfinding = new GridPathfinding();
+            _gridPathfinding.Initialize(_tileGrid);
+
+            _ballManager.Initialize(currentLevel.BallPositions, _tileGrid, _gridPathfinding);
             _obstacleManager.Initialize(currentLevel.ObstaclePositions, _tileGrid);
         }
     }
