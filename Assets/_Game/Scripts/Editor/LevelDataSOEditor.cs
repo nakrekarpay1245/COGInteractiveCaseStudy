@@ -18,7 +18,7 @@ namespace _Game.Editor.LevelEditor
         private Stack<EditorState> _undoStack = new Stack<EditorState>();
         private Stack<EditorState> _redoStack = new Stack<EditorState>();
         
-        private const float TILE_SIZE = 30f;
+        private const float TILE_SIZE = 40f;
         private const float BUTTON_SIZE = 50f;
         private const float SPACING = 10f;
         

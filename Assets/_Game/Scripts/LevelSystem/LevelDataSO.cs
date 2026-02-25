@@ -8,8 +8,11 @@ namespace _Game.LevelSystem
     public class LevelDataSO : ScriptableObject
     {
         [Title("Level Configuration")]
+        [Header("Grid Configuration")]
         [SerializeField] private Vector2Int _gridSize = new Vector2Int(2, 2);
+        [Header("Ball Configuration")]
         [SerializeField] private float _ballSpeed = 5f;
+        [Header("Paint Configuration")]
         [SerializeField] private ColorType _levelColor = ColorType._0None;
         
         [Title("Positions")]
