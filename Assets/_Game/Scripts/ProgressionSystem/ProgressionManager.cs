@@ -1,7 +1,8 @@
+using System;
 using _Game.TileGridSystem;
 using UnityEngine;
 
-namespace _Game.LevelSystem
+namespace _Game.ProgressionSystem
 {
     public class ProgressionManager : MonoBehaviour
     {
@@ -10,6 +11,7 @@ namespace _Game.LevelSystem
         private TileGrid _tileGrid;
 
         public float CurrentProgress { get => _currentProgress; }
+        public event Action OnProgressCompleted;
 
         public void Initialize(Color levelColor, TileGrid tileGrid)
         {
@@ -35,6 +37,11 @@ namespace _Game.LevelSystem
             if (totalCount == 0) return;
 
             _currentProgress = (float)paintedCount / totalCount;
+
+            if (_currentProgress >= 1f)
+            {
+                OnProgressCompleted?.Invoke();
+            }
         }
     }
 }

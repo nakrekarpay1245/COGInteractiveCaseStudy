@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Game.BallSystem;
 using _Game.ColorSystem;
 using _Game.Core;
 using _Game.ObstacleSystem;
+using _Game.ProgressionSystem;
 using _Game.TileGridSystem;
 using TriInspector;
 using UnityEngine;
@@ -29,6 +31,9 @@ namespace _Game.LevelSystem
         
         private int _currentLevelIndex;
         private GridPathfinding _gridPathfinding;
+        private bool _isLevelCompleted;
+
+        public static event Action OnWin;
 
         public TileGrid TileGrid { get => _tileGrid; }
         public List<LevelDataSO> LevelList { get => _levelList; }
@@ -106,7 +111,30 @@ namespace _Game.LevelSystem
             _progressionManager.Initialize(levelColor, _tileGrid);
             _progressionBar.Initialize(levelColor);
 
+            _progressionManager.OnProgressCompleted += OnProgressCompleted;
+
             _ballManager.Initialize(currentLevel.BallPositions, _tileGrid, _gridPathfinding);
+        }
+
+        private void OnDisable()
+        {
+            if (_progressionManager != null)
+            {
+                _progressionManager.OnProgressCompleted -= OnProgressCompleted;
+            }
+        }
+
+        private void OnProgressCompleted()
+        {
+            if (_isLevelCompleted) return;
+            
+            _isLevelCompleted = true;
+            Win();
+        }
+
+        public void Win()
+        {
+            OnWin?.Invoke();
         }
     }
 }

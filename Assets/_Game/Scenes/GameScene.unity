@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playTimeUI: {fileID: 2108397624}
-  _progressionBar: {fileID: 2011787456}
+  _progressionBar: {fileID: 0}
   _winMenu: {fileID: 886021774}
   _loseMenu: {fileID: 1655236687}
   _settingsMenu: {fileID: 1779436297}
@@ -3908,7 +3908,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1610702797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c45a4a972859294d8ba5e4cf6e7cf1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 16710fae258dbf6458a925e0b5427a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1655236685
@@ -4719,7 +4719,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2011787453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06381594af8deb249bfb19f18eb58784, type: 3}
+  m_Script: {fileID: 11500000, guid: 01253b8a6bb470c43be390bb799b9347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _slider: {fileID: 2011787455}

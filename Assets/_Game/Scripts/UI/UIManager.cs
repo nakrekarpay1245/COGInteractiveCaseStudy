@@ -1,7 +1,7 @@
 using _Game.Core;
 using _Game.LevelSystem;
+using _Game.ProgressionSystem;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _Game.UI
 {
@@ -20,6 +20,12 @@ namespace _Game.UI
         private void Start()
         {
             InitializeUI();
+            LevelManager.OnWin += ShowWinMenu;
+        }
+
+        private void OnDestroy()
+        {
+            LevelManager.OnWin -= ShowWinMenu;
         }
 
         private void InitializeUI()

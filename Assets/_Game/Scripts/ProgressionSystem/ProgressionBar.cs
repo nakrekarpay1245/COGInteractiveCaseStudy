@@ -1,8 +1,9 @@
+using _Game.LevelSystem;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Game.LevelSystem
+namespace _Game.ProgressionSystem
 {
     public class ProgressionBar : MonoBehaviour
     {
