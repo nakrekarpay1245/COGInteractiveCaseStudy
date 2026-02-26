@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c505794d04d958944af0f3925ad7f0e8, type: 3}
   m_Name: LevelData_01
   m_EditorClassIdentifier: 
-  _gridSize: {x: 5, y: 5}
+  _gridSize: {x: 4, y: 4}
   _ballSpeed: 20
   _levelColor: 6
   _cameraOrthoSize: 7
@@ -20,7 +20,7 @@ MonoBehaviour:
   _ballPositions:
   - {x: 0, y: 0}
   _obstaclePositions:
-  - {x: 2, y: 0}
+  - {x: 1, y: 1}
   - {x: 2, y: 1}
+  - {x: 1, y: 2}
   - {x: 2, y: 2}
-  - {x: 2, y: 3}

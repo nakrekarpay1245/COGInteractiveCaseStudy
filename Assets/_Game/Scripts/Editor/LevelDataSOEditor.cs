@@ -19,6 +19,8 @@ namespace _Game.Editor.LevelEditor
         private PlacementMode _currentMode = PlacementMode.None;
         private bool _isDragging = false;
         private Vector2Int _lastPlacedTile = new Vector2Int(-1, -1);
+        private bool _showSolvabilityResult = false;
+        private bool _isSolvable = false;
         
         private Stack<EditorState> _undoStack = new Stack<EditorState>();
         private Stack<EditorState> _redoStack = new Stack<EditorState>();
@@ -91,6 +93,14 @@ namespace _Game.Editor.LevelEditor
             
             GUILayout.FlexibleSpace();
             
+            if (GUILayout.Button("Check Solvability", GUILayout.Width(BUTTON_SIZE * 2.5f), GUILayout.Height(BUTTON_SIZE)))
+            {
+                _showSolvabilityResult = true;
+                _isSolvable = CheckSolvability();
+            }
+            
+            GUILayout.FlexibleSpace();
+            
             Color ballButtonColor = _currentMode == PlacementMode.Ball ? BALL_COLOR : Color.white;
             GUI.backgroundColor = ballButtonColor;
             if (GUILayout.Button("●", GUILayout.Width(BUTTON_SIZE), GUILayout.Height(BUTTON_SIZE)))
@@ -112,6 +122,27 @@ namespace _Game.Editor.LevelEditor
         
         private void DrawGrid()
         {
+            if (_showSolvabilityResult)
+            {
+                Color resultColor = _isSolvable ? new Color(0.2f, 0.8f, 0.2f) : new Color(0.8f, 0.2f, 0.2f);
+                string icon = _isSolvable ? "✔" : "×";
+                
+                GUIStyle boxStyle = new GUIStyle(GUI.skin.box);
+                boxStyle.fontSize = 16;
+                boxStyle.fontStyle = FontStyle.Bold;
+                boxStyle.alignment = TextAnchor.MiddleCenter;
+                boxStyle.normal.textColor = Color.white;
+                
+                GUI.backgroundColor = resultColor;
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                GUILayout.Box($"{icon}  {(_isSolvable ? "SOLVABLE" : "NOT SOLVABLE")}  {icon}", boxStyle, GUILayout.Height(40), GUILayout.MinWidth(300));
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.EndHorizontal();
+                GUI.backgroundColor = Color.white;
+                EditorGUILayout.Space(10);
+            }
+            
             Vector2Int gridSize = _levelData.GridSize;
             
             for (int y = gridSize.y - 1; y >= 0; y--)
@@ -331,6 +362,70 @@ namespace _Game.Editor.LevelEditor
             
             serializedObject.ApplyModifiedProperties();
             EditorUtility.SetDirty(_levelData);
+        }
+        
+        private bool CheckSolvability()
+        {
+            Vector2Int gridSize = _levelData.GridSize;
+            HashSet<Vector2Int> obstacles = new HashSet<Vector2Int>(_levelData.ObstaclePositions ?? new List<Vector2Int>());
+            HashSet<Vector2Int> balls = new HashSet<Vector2Int>(_levelData.BallPositions ?? new List<Vector2Int>());
+            HashSet<Vector2Int> paintedTiles = new HashSet<Vector2Int>();
+            
+            int totalTiles = gridSize.x * gridSize.y - obstacles.Count - balls.Count;
+            
+            foreach (Vector2Int ballPos in balls)
+            {
+                SimulateBallMovement(ballPos, gridSize, obstacles, balls, paintedTiles);
+            }
+            
+            return paintedTiles.Count == totalTiles;
+        }
+        
+        private void SimulateBallMovement(Vector2Int startPos, Vector2Int gridSize, HashSet<Vector2Int> obstacles, HashSet<Vector2Int> balls, HashSet<Vector2Int> paintedTiles)
+        {
+            Queue<Vector2Int> queue = new Queue<Vector2Int>();
+            HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
+            queue.Enqueue(startPos);
+            visited.Add(startPos);
+            
+            Vector2Int[] directions = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+            
+            while (queue.Count > 0)
+            {
+                Vector2Int currentPos = queue.Dequeue();
+                
+                foreach (Vector2Int dir in directions)
+                {
+                    Vector2Int checkPos = currentPos + dir;
+                    
+                    if (!IsValidPosition(checkPos, gridSize) || obstacles.Contains(checkPos) || balls.Contains(checkPos))
+                        continue;
+                    
+                    Vector2Int nextPos = checkPos;
+                    paintedTiles.Add(nextPos);
+                    
+                    while (true)
+                    {
+                        Vector2Int furtherPos = nextPos + dir;
+                        if (!IsValidPosition(furtherPos, gridSize) || obstacles.Contains(furtherPos) || balls.Contains(furtherPos))
+                            break;
+                        
+                        nextPos = furtherPos;
+                        paintedTiles.Add(nextPos);
+                    }
+                    
+                    if (!visited.Contains(nextPos))
+                    {
+                        visited.Add(nextPos);
+                        queue.Enqueue(nextPos);
+                    }
+                }
+            }
+        }
+        
+        private bool IsValidPosition(Vector2Int pos, Vector2Int gridSize)
+        {
+            return pos.x >= 0 && pos.x < gridSize.x && pos.y >= 0 && pos.y < gridSize.y;
         }
         
         private enum PlacementMode

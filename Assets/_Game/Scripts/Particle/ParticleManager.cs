@@ -69,7 +69,7 @@ namespace _Game.Particle
         {
             if (_particlePools.TryGetValue(key, out Queue<ParticlePlayer> pool) && pool.Count > 0)
             {
-                RichLogger.Log($"Spawning particle with texture for key: {key}");
+                // RichLogger.Log($"Spawning particle with texture for key: {key}");
                 ParticlePlayer player = pool.Dequeue();
                 player.SetTexture(texture);
                 player.Play(position, Quaternion.identity, null);
