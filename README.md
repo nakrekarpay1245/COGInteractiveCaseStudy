@@ -8,9 +8,13 @@ A 2D grid-based puzzle game built with Unity 2022.3.62f2 featuring dynamic pathf
 - **Render Pipeline:** Universal Render Pipeline (URP) 14.0.12
 - **Architecture:** SOLID principles with modular system design
 - **Key Packages:**
-  - PrimeTween (Animation)
-  - Tri-Inspector (Enhanced Inspector)
-  - Unity Toolbar Extender (Editor Tools)
+  - [PrimeTween](https://assetstore.unity.com/packages/tools/animation/primetween-high-performance-animations-and-sequences-252960) - High-performance animations and sequences
+  - [Tri-Inspector](https://github.com/codewriter-packages/Tri-Inspector) - Enhanced Inspector attributes
+  - [Unity Toolbar Extender](https://github.com/marijnz/unity-toolbar-extender) - Custom editor toolbar extensions
+  - TextMeshPro - Advanced text rendering
+- **Assets:**
+  - [Kenney Shape Characters](https://kenney.nl/assets/shape-characters) - Character sprites
+  - [Kenney Particle Pack](https://kenney.nl/assets/particle-pack) - Particle effects
 
 ## Project Structure
 
