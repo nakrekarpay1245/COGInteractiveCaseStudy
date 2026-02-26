@@ -41,7 +41,7 @@ Assets/_Game/
 
 ### Grid System
 - Dynamic grid generation based on level data
-- Tile-based pathfinding with A* algorithm
+- Directional pathfinding system
 - Automatic tile painting on ball movement
 - Obstacle detection and collision handling
 
