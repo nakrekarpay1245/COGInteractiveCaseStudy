@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSize: {x: 7, y: 5}
   _ballSpeed: 20
-  _levelColor: 6
+  _levelColor: 4
   _cameraOrthoSize: 7
   _floorSize: {x: 3, y: 3}
   _ballPositions:

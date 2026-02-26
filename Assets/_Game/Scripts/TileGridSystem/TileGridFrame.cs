@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TriInspector;
 using _Game.LevelSystem;
+using _Game.Utilities;
 
 namespace _Game.TileGridSystem
 {
@@ -29,7 +30,7 @@ namespace _Game.TileGridSystem
         {
             if (tileGrid == null)
             {
-                Debug.LogError("TileGrid reference is missing. Cannot generate frame.");
+                RichLogger.LogError("TileGrid reference is missing. Cannot generate frame.");
                 return;
             }
 

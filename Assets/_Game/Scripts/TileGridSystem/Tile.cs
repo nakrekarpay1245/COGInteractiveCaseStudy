@@ -104,7 +104,7 @@ namespace _Game.TileGridSystem
         {
             if (Application.isPlaying) return;
 
-            RichLogger.Log($"{name} initialized (Editor Mode)!");
+            RichLogger.Log($"{name} initialized (Editor Mode)!", RichLogger.Color.cyan);
         }
 #endif
     }
