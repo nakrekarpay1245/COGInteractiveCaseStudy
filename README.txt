@@ -233,7 +233,7 @@ All code follows these principles:
 
 ## Development Time
 
-**Total Time Spent:** ~40-50 hours
+**Total Time Spent:** ~2 days (48 hours)
 
 **Breakdown:**
 - Core Systems (Grid, Ball, Pathfinding): ~15 hours
