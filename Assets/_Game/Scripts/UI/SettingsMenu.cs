@@ -15,7 +15,10 @@ namespace _Game.UI
                 _closeButton.onClick.AddListener(Close);
 
             if (_muteToggle != null)
+            {
+                _muteToggle.isOn = AudioManager.Instance.IsMuted;
                 _muteToggle.onValueChanged.AddListener(OnMuteToggleChanged);
+            }
         }
 
         public void Open()

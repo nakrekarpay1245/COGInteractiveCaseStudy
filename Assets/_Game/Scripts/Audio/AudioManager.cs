@@ -13,6 +13,8 @@ namespace _Game.Audio
         private Dictionary<string, AudioData> _audioDataMap = new Dictionary<string, AudioData>();
         [SerializeField, ReadOnly] private bool _isMuted;
 
+        public bool IsMuted { get { return _isMuted; } }
+
         private void Start()
         {
             InitializePools();
