@@ -1,6 +1,8 @@
 using _Game.ColorSystem;
 using _Game.LevelSystem;
 using DG.Tweening;
+using System.Collections.Generic;
+using TriInspector;
 using UnityEngine;
 
 namespace _Game.TileGridSystem
@@ -12,8 +14,9 @@ namespace _Game.TileGridSystem
         [SerializeField] private float _paintDuration = 0.2f;
         [SerializeField] private float _paintScale = 0.6f;
         [SerializeField] private Ease _paintEase = Ease.OutBack;
+        [SerializeField] private List<ColorSpritePair> _colorSpritePairs;
 
-        private ColorType _colorType;
+        [SerializeField, ReadOnly] private ColorType _colorType;
 
         public void Initialize()
         {
@@ -29,7 +32,15 @@ namespace _Game.TileGridSystem
         public void SetPaintColor(ColorType colorType)
         {
             _colorType = colorType;
-            _paint.color = LevelManager.Instance.ColorManager.GetColor(colorType);
+
+            foreach (ColorSpritePair pair in _colorSpritePairs)
+            {
+                if (pair.ColorType == _colorType)
+                {
+                    _paint.sprite = pair.PaintSprite;
+                    break;
+                }
+            }
         }
 
         public void Paint()
