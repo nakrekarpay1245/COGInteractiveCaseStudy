@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using _Game.Core;
+using _Game.Utilities;
 
 namespace _Game.Particle
 {
@@ -62,6 +63,19 @@ namespace _Game.Particle
                 ParticlePlayer player = pool.Dequeue();
                 player.Play(position, rotation, parent, customDuration);
             }
+        }
+
+        public ParticlePlayer SpawnWithTexture(string key, Vector3 position, Texture texture)
+        {
+            if (_particlePools.TryGetValue(key, out Queue<ParticlePlayer> pool) && pool.Count > 0)
+            {
+                RichLogger.Log($"Spawning particle with texture for key: {key}");
+                ParticlePlayer player = pool.Dequeue();
+                player.SetTexture(texture);
+                player.Play(position, Quaternion.identity, null);
+                return player;
+            }
+            return null;
         }
 
         public void ReturnToPool(ParticlePlayer player)

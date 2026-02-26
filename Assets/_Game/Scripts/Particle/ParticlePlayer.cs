@@ -9,6 +9,7 @@ namespace _Game.Particle
         private string _key;
         private float _defaultDuration;
         private Coroutine _returnCoroutine;
+        private ParticleSystemRenderer _particleRenderer;
         
         public string Key => _key;
         
@@ -17,6 +18,16 @@ namespace _Game.Particle
             _particleManager = particleManager;
             _key = key;
             _defaultDuration = defaultDuration;
+            _particleRenderer = GetComponent<ParticleSystemRenderer>();
+        }
+        
+        public void SetTexture(Texture texture)
+        {
+            if (_particleRenderer != null && texture != null)
+            {
+                Material material = _particleRenderer.material;
+                material.mainTexture = texture;
+            }
         }
         
         public void Play(Vector3 position, Quaternion rotation, Transform parent = null, float customDuration = -1f)

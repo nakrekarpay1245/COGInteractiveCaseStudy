@@ -4348,7 +4348,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8986bcd683fd7f8449733b8692a706d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleDataList: []
+  _particleDataList:
+  - _key: Pop
+    _prefab: {fileID: 2116481070773996421, guid: b8b0e1dc1eb71dc4389048918b6d96bb, type: 3}
+    _count: 25
+    _duration: 1
 --- !u!1 &2011787453
 GameObject:
   m_ObjectHideFlags: 0

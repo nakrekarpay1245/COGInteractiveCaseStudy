@@ -22,7 +22,6 @@ namespace _Game.BallSystem
         [Title("Components")]
         [SerializeField] private BallAnimator _ballAnimator;
         [SerializeField] private BallSpriteHandler _ballSpriteHandler;
-        [SerializeField] private BallParticleHandler _ballParticleHandler;
         [SerializeField] private BallTrailHandler _ballTrailHandler;
 
         private Coroutine _moveCoroutine;
@@ -40,11 +39,6 @@ namespace _Game.BallSystem
             if (_ballSpriteHandler == null)
             {
                 _ballSpriteHandler = GetComponent<BallSpriteHandler>();
-            }
-
-            if (_ballParticleHandler == null)
-            {
-                _ballParticleHandler = GetComponent<BallParticleHandler>();
             }
 
             if (_ballTrailHandler == null)
@@ -85,11 +79,6 @@ namespace _Game.BallSystem
             if (_ballSpriteHandler != null)
             {
                 _ballSpriteHandler.SetPaintColor(colorType);
-            }
-
-            if (_ballParticleHandler != null)
-            {
-                _ballParticleHandler.SetPaintColor(colorType);
             }
 
             if (_ballTrailHandler != null)
