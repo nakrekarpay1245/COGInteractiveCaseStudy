@@ -13,6 +13,7 @@ namespace _Game.BallSystem
         [Title("Ball")]
         [SerializeField, ReadOnly] private Vector2 _gridPosition;
         [SerializeField, ReadOnly] private float _speed;
+        [SerializeField] private Ease _easeType = Ease.Linear;
 
         [SerializeField, ReadOnly] private TileGrid _tileGrid;
         [SerializeField, ReadOnly] private Tile _tile;
@@ -21,6 +22,7 @@ namespace _Game.BallSystem
         [SerializeField] private BallAnimator _ballAnimator;
 
         private Coroutine _moveCoroutine;
+        private Vector2 _lastMoveDirection;
 
         public Vector2 GridPosition { get => _gridPosition; set => _gridPosition = value; }
 
@@ -67,6 +69,8 @@ namespace _Game.BallSystem
             List<Vector3> path = gridPathfinding.GetPath(transform.position, direction);
             if (path == null || path.Count <= 1) return;
 
+            _lastMoveDirection = direction;
+
             if (_tile != null)
             {
                 _tile.SetBall(null);
@@ -99,7 +103,7 @@ namespace _Game.BallSystem
 
             Tween moveTween = null;
             moveTween = transform.DOPath(pathArray, duration, PathType.Linear)
-                .SetEase(Ease.Linear)
+                .SetEase(_easeType)
                 .SetAutoKill(true)
                 .SetLink(gameObject)
                 .OnUpdate(() =>
@@ -120,7 +124,7 @@ namespace _Game.BallSystem
 
             if (_ballAnimator != null)
             {
-                _ballAnimator.ResetScale();
+                _ballAnimator.ResetScale(_lastMoveDirection);
             }
 
             _moveCoroutine = null;

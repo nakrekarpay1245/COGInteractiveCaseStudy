@@ -133,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridPosition: {x: 0, y: 0}
   _speed: 0
+  _easeType: 35
   _tileGrid: {fileID: 0}
   _tile: {fileID: 0}
   _ballAnimator: {fileID: 131237088678301038}
@@ -148,10 +149,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe53d37f86a1e041aa3ed8e6d726295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalScaleReduction: 0.8
-  _verticalScaleReduction: 0.8
-  _scaleDuration: 0.2
-  _scaleEase: 6
+  _horizontalScaleReduction: 0.65
+  _verticalScaleReduction: 0.65
+  _scaleDuration: 0.15
+  _scaleEase: 1
+  _stopScaleReduction: 0.85
+  _stopAnimationDuration: 0.2
 --- !u!1 &6946045962245187549
 GameObject:
   m_ObjectHideFlags: 0

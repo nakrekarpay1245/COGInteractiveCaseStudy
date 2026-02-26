@@ -13,6 +13,10 @@ namespace _Game.BallSystem
         [SerializeField] private float _scaleDuration = 0.2f;
         [SerializeField] private Ease _scaleEase = Ease.OutQuad;
 
+        [Title("Stop Animation Settings")]
+        [SerializeField] private float _stopScaleReduction = 0.9f;
+        [SerializeField] private float _stopAnimationDuration = 0.15f;
+
         private Vector3 _initialScale;
         private Tween _scaleTween;
 
@@ -42,14 +46,28 @@ namespace _Game.BallSystem
                 .SetLink(gameObject);
         }
 
-        public void ResetScale()
+        public void ResetScale(Vector2 lastDirection)
         {
             _scaleTween?.Kill();
 
-            _scaleTween = transform.DOScale(_initialScale, _scaleDuration)
-                .SetEase(_scaleEase)
-                .SetAutoKill(true)
-                .SetLink(gameObject);
+            Vector3 squashScale = _initialScale;
+
+            if (Mathf.Abs(lastDirection.x) > Mathf.Abs(lastDirection.y))
+            {
+                squashScale.x = _initialScale.x * _stopScaleReduction;
+            }
+            else
+            {
+                squashScale.y = _initialScale.y * _stopScaleReduction;
+            }
+
+            Sequence stopSequence = DOTween.Sequence();
+            stopSequence.Append(transform.DOScale(squashScale, _stopAnimationDuration * 0.5f).SetEase(Ease.OutQuad))
+                        .Append(transform.DOScale(_initialScale, _stopAnimationDuration * 0.5f).SetEase(Ease.OutQuad))
+                        .SetAutoKill(true)
+                        .SetLink(gameObject);
+
+            _scaleTween = stopSequence;
         }
 
         private void OnDestroy()
