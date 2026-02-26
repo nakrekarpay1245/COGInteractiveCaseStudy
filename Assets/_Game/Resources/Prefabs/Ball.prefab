@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridPosition: {x: 0, y: 0}
   _speed: 0
-  _easeType: 35
+  _easeType: 1
   _tileGrid: {fileID: 0}
   _tile: {fileID: 0}
   _ballAnimator: {fileID: 131237088678301038}

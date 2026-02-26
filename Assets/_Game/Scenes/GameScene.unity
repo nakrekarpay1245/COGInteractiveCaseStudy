@@ -3231,7 +3231,7 @@ MonoBehaviour:
     _audioClips:
     - {fileID: 8300000, guid: c5b4b504ecd5e434dacb72c90a4539d3, type: 3}
     _playMode: 0
-    _count: 10
+    _count: 25
     _minVolume: 0.8
     _maxVolume: 1
     _minPitch: 0.8

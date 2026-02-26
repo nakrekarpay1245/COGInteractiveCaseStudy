@@ -1,5 +1,5 @@
 using _Game.LevelSystem;
-using DG.Tweening;
+using PrimeTween;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,16 +42,14 @@ namespace _Game.ProgressionSystem
 
         private void UpdateProgressBar(float targetProgress)
         {
-            _progressTween?.Kill();
+            _progressTween.Stop();
 
-            _progressTween = DOTween.To(() => _slider.value, x => _slider.value = x, targetProgress, _tweenDuration)
-                .SetAutoKill(true)
-                .SetLink(gameObject);
+            _progressTween = Tween.Custom(_slider.value, targetProgress, _tweenDuration, onValueChange: value => _slider.value = value);
         }
 
         private void OnDestroy()
         {
-            _progressTween?.Kill();
+            _progressTween.Stop();
         }
     }
 }

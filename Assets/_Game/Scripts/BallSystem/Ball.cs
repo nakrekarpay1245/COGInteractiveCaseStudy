@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using _Game.ColorSystem;
 using _Game.TileGridSystem;
 using _Game.Utilities;
-using DG.Tweening;
+using PrimeTween;
 using TriInspector;
 using UnityEngine;
 
@@ -138,14 +138,10 @@ namespace _Game.BallSystem
             float totalDistance = CalculatePathDistance(path);
             float duration = totalDistance / _speed;
 
-            Tween moveTween = null;
-            moveTween = transform.DOPath(pathArray, duration, PathType.Linear)
-                .SetEase(_easeType)
-                .SetAutoKill(true)
-                .SetLink(gameObject)
-                .OnUpdate(() =>
+            Tween moveTween = Tween.Position(transform, pathArray[pathArray.Length - 1], duration, _easeType, useUnscaledTime: false)
+                .OnUpdate(transform, (target, tween) =>
                 {
-                    int newPathIndex = Mathf.FloorToInt(moveTween.ElapsedPercentage() * path.Count);
+                    int newPathIndex = Mathf.FloorToInt(tween.interpolationFactor * path.Count);
                     if (newPathIndex > currentPathIndex && newPathIndex < path.Count)
                     {
                         Tile currentTile = _tileGrid.ClosestTile(path[newPathIndex]);
@@ -157,7 +153,17 @@ namespace _Game.BallSystem
                     }
                 });
 
-            yield return moveTween.WaitForCompletion();
+            for (int i = 1; i < pathArray.Length; i++)
+            {
+                float segmentDuration = Vector3.Distance(pathArray[i - 1], pathArray[i]) / _speed;
+                yield return Tween.Position(transform, pathArray[i], segmentDuration, _easeType).ToYieldInstruction();
+                
+                Tile currentTile = _tileGrid.ClosestTile(pathArray[i]);
+                if (currentTile != null)
+                {
+                    currentTile.Paint();
+                }
+            }
 
             if (_ballAnimator != null)
             {

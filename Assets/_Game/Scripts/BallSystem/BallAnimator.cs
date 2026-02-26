@@ -1,5 +1,4 @@
-using System.Collections;
-using DG.Tweening;
+using PrimeTween;
 using TriInspector;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ namespace _Game.BallSystem
         [SerializeField] private float _stopAnimationDuration = 0.15f;
 
         private Vector3 _initialScale;
-        private Tween _scaleTween;
+        private Sequence _scaleTween;
 
         private void Awake()
         {
@@ -27,7 +26,7 @@ namespace _Game.BallSystem
 
         public void AnimateMovement(Vector2 direction)
         {
-            _scaleTween?.Kill();
+            _scaleTween.Stop();
 
             Vector3 targetScale = _initialScale;
 
@@ -40,15 +39,12 @@ namespace _Game.BallSystem
                 targetScale.x = _initialScale.x * _verticalScaleReduction;
             }
 
-            _scaleTween = transform.DOScale(targetScale, _scaleDuration)
-                .SetEase(_scaleEase)
-                .SetAutoKill(true)
-                .SetLink(gameObject);
+            _scaleTween = Sequence.Create(Tween.Scale(transform, targetScale, _scaleDuration, _scaleEase));
         }
 
         public void ResetScale(Vector2 lastDirection)
         {
-            _scaleTween?.Kill();
+            _scaleTween.Stop();
 
             Vector3 squashScale = _initialScale;
 
@@ -61,18 +57,16 @@ namespace _Game.BallSystem
                 squashScale.y = _initialScale.y * _stopScaleReduction;
             }
 
-            Sequence stopSequence = DOTween.Sequence();
-            stopSequence.Append(transform.DOScale(squashScale, _stopAnimationDuration * 0.5f).SetEase(Ease.OutQuad))
-                        .Append(transform.DOScale(_initialScale, _stopAnimationDuration * 0.5f).SetEase(Ease.OutQuad))
-                        .SetAutoKill(true)
-                        .SetLink(gameObject);
+            Sequence stopSequence = Sequence.Create()
+                .Chain(Tween.Scale(transform, squashScale, _stopAnimationDuration * 0.5f, Ease.OutQuad))
+                .Chain(Tween.Scale(transform, _initialScale, _stopAnimationDuration * 0.5f, Ease.OutQuad));
 
             _scaleTween = stopSequence;
         }
 
         private void OnDestroy()
         {
-            _scaleTween?.Kill();
+            _scaleTween.Stop();
         }
     }
 }

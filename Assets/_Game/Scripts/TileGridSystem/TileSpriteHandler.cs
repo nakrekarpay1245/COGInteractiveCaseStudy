@@ -1,6 +1,6 @@
 using _Game.Audio;
 using _Game.ColorSystem;
-using DG.Tweening;
+using PrimeTween;
 using System.Collections.Generic;
 using TriInspector;
 using UnityEngine;
@@ -17,6 +17,7 @@ namespace _Game.TileGridSystem
         [SerializeField] private List<ColorSpritePair> _colorSpritePairs;
 
         [SerializeField, ReadOnly] private ColorType _colorType;
+        private bool _isPainted;
 
         [SerializeField] private string _paintAudioKey = "Pop";
 
@@ -47,8 +48,11 @@ namespace _Game.TileGridSystem
 
         public void Paint()
         {
+            if (_isPainted) return;
+            
+            _isPainted = true;
             AudioManager.Instance.PlayAudio(_paintAudioKey);
-            _paint.transform.DOScale(_paintScale, _paintDuration).SetEase(_paintEase).SetLink(gameObject).SetAutoKill(true);
+            Tween.Scale(_paint.transform, _paintScale, _paintDuration, _paintEase);
         }
     }
 }
