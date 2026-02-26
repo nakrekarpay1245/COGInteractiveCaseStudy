@@ -1,6 +1,6 @@
+using _Game.LevelSystem;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace _Game.UI
 {
@@ -27,7 +27,7 @@ namespace _Game.UI
         private void NextLevel()
         {
             Close();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            LevelManager.Instance.NextLevel();
         }
     }
 }

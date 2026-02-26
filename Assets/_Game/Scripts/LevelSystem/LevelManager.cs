@@ -8,9 +8,12 @@ using _Game.Core;
 using _Game.FloorSystem;
 using _Game.ObstacleSystem;
 using _Game.ProgressionSystem;
+using _Game.SaveSystem;
 using _Game.TileGridSystem;
+using _Game.Utilities;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Game.LevelSystem
 {
@@ -39,6 +42,7 @@ namespace _Game.LevelSystem
         
         [Title("Level Data")]
         [SerializeField] private List<LevelDataSO> _levelList;
+        [SerializeField] private bool _isRandomizeLevelOnLoop;
         
         private int _currentLevelIndex;
         private GridPathfinding _gridPathfinding;
@@ -58,33 +62,39 @@ namespace _Game.LevelSystem
 
         private void Awake()
         {
-#if UNITY_EDITOR
-            _currentLevelIndex = EditorStartLevelIndex;
-#endif
+            _currentLevelIndex = SaveManager.Load();
+            
+            if (_currentLevelIndex >= _levelList.Count)
+            {
+                _currentLevelIndex = _isRandomizeLevelOnLoop ? UnityEngine.Random.Range(0, _levelList.Count) : 0;
+                SaveManager.Save(_currentLevelIndex);
+            }
+            
+            RichLogger.Log($"Current level index: {_currentLevelIndex}", RichLogger.Color.purple);
 
             if (_tileGrid == null)
             {
-                Debug.LogError("TileGrid reference is missing!");
+                RichLogger.LogError("TileGrid reference is missing!");
             }
             
             if (_tileGridFrame == null)
             {
-                Debug.LogError("TileGridFrame reference is missing!");
+                RichLogger.LogError("TileGridFrame reference is missing!");
             }
             
             if (_ballManager == null)
             {
-                Debug.LogError("BallManager reference is missing!");
+                RichLogger.LogError("BallManager reference is missing!");
             }
             
             if (_obstacleManager == null)
             {
-                Debug.LogError("ObstacleManager reference is missing!");
+                RichLogger.LogError("ObstacleManager reference is missing!");
             }
             
             if (_levelList == null || _levelList.Count == 0)
             {
-                Debug.LogError("LevelList is empty or missing!");
+                RichLogger.LogError("LevelList is empty or missing!");
             }
         }
 
@@ -108,6 +118,8 @@ namespace _Game.LevelSystem
         {            
             LevelDataSO currentLevel = _levelList[_currentLevelIndex];
             ColorType levelColor = currentLevel.LevelColor;
+            
+            RichLogger.Log($"Initializing level {_currentLevelIndex} - Grid: {currentLevel.GridSize}", RichLogger.Color.cyan);
             
             if (_cameraManager != null)
             {
@@ -158,6 +170,21 @@ namespace _Game.LevelSystem
         public void Win()
         {
             OnWin?.Invoke();
+        }
+
+        public void NextLevel()
+        {
+            _currentLevelIndex++;
+            
+            if (_currentLevelIndex >= _levelList.Count)
+            {
+                _currentLevelIndex = _isRandomizeLevelOnLoop ? UnityEngine.Random.Range(0, _levelList.Count) : 0;
+                RichLogger.Log($"All levels completed! Loop mode: {(_isRandomizeLevelOnLoop ? "Random" : "Sequential")}", RichLogger.Color.yellow);
+            }
+            
+            RichLogger.Log($"NextLevel called - New index: {_currentLevelIndex}", RichLogger.Color.green);
+            SaveManager.Save(_currentLevelIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

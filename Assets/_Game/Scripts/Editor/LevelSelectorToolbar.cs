@@ -2,6 +2,8 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using _Game.LevelSystem;
+using _Game.SaveSystem;
+using UnityEditor.SceneManagement;
 
 namespace _Game.Editor
 {
@@ -40,7 +42,16 @@ namespace _Game.Editor
             if (newIndex != _selectedLevelIndex)
             {
                 _selectedLevelIndex = newIndex;
-                LevelManager.EditorStartLevelIndex = _selectedLevelIndex;
+                SaveManager.Save(_selectedLevelIndex);
+                
+                if (Application.isPlaying)
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+                }
+                else
+                {
+                    EditorApplication.isPlaying = true;
+                }
             }
         }
 

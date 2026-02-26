@@ -1,3 +1,4 @@
+using _Game.Utilities;
 using UnityEngine;
 
 namespace _Game.SaveSystem
@@ -13,6 +14,8 @@ namespace _Game.SaveSystem
             string json = JsonUtility.ToJson(saveData);
             PlayerPrefs.SetString(SAVE_KEY, json);
             PlayerPrefs.Save();
+            
+            RichLogger.Log($"Level saved: {levelIndex}", RichLogger.Color.green);
         }
 
         public static int Load()
@@ -21,10 +24,12 @@ namespace _Game.SaveSystem
             
             if (string.IsNullOrEmpty(json))
             {
+                RichLogger.Log("No save data found, starting from level 0", RichLogger.Color.orange);
                 return 0;
             }
 
             SaveData saveData = JsonUtility.FromJson<SaveData>(json);
+            RichLogger.Log($"Level loaded: {saveData.CurrentLevelIndex}", RichLogger.Color.cyan);
             return saveData.CurrentLevelIndex;
         }
     }
