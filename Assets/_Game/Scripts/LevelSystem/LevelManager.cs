@@ -122,6 +122,7 @@ namespace _Game.LevelSystem
             _progressionManager.OnProgressCompleted += OnProgressCompleted;
 
             _ballManager.Initialize(currentLevel.BallPositions, _tileGrid, _gridPathfinding, _ballSpawner, currentLevel.BallSpeed);
+            _ballManager.SetLevelColor(levelColor);
         }
 
         private void OnDisable()

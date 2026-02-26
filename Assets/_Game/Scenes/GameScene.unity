@@ -3268,19 +3268,17 @@ MonoBehaviour:
   - _colorType: 0
     _color: {r: 0, g: 0, b: 0, a: 1}
   - _colorType: 1
-    _color: {r: 0.31764707, g: 0, b: 0, a: 1}
+    _color: {r: 1, g: 0.19607843, b: 0.29411766, a: 1}
   - _colorType: 2
-    _color: {r: 0, g: 0, b: 0.31764707, a: 1}
+    _color: {r: 0.49019608, g: 0.6862745, b: 1, a: 1}
   - _colorType: 3
-    _color: {r: 0, g: 0.31764707, b: 0, a: 1}
+    _color: {r: 0.39215687, g: 1, b: 0.5882353, a: 1}
   - _colorType: 4
-    _color: {r: 0.31764707, g: 0.29411766, b: 0.003921569, a: 1}
+    _color: {r: 1, g: 0.6862745, b: 0.19607843, a: 1}
   - _colorType: 5
-    _color: {r: 0.31764707, g: 0.16078432, b: 0, a: 1}
+    _color: {r: 0.5882353, g: 0.39215687, b: 1, a: 1}
   - _colorType: 6
-    _color: {r: 0.16078432, g: 0, b: 0.31764707, a: 1}
-  - _colorType: 7
-    _color: {r: 1, g: 0, b: 0.49019608, a: 1}
+    _color: {r: 1, g: 0.49019608, b: 0.88235295, a: 1}
 --- !u!1 &1561205796
 GameObject:
   m_ObjectHideFlags: 0

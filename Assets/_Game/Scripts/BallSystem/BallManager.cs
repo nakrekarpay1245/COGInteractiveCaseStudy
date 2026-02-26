@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Game.ColorSystem;
 using _Game.Input;
 using _Game.TileGridSystem;
 using UnityEngine;
@@ -111,6 +112,14 @@ namespace _Game.BallSystem
                 Destroy(ball.gameObject);
             }
             _spawnedBalls.Clear();
+        }
+
+        public void SetLevelColor(ColorType colorType)
+        {
+            foreach (Ball ball in _spawnedBalls)
+            {
+                ball.SetPaintColor(colorType);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Game.ColorSystem;
 using _Game.TileGridSystem;
 using _Game.Utilities;
 using DG.Tweening;
@@ -20,6 +21,9 @@ namespace _Game.BallSystem
 
         [Title("Components")]
         [SerializeField] private BallAnimator _ballAnimator;
+        [SerializeField] private BallSpriteHandler _ballSpriteHandler;
+        [SerializeField] private BallParticleHandler _ballParticleHandler;
+        [SerializeField] private BallTrailHandler _ballTrailHandler;
 
         private Coroutine _moveCoroutine;
         private Vector2 _lastMoveDirection;
@@ -31,6 +35,21 @@ namespace _Game.BallSystem
             if (_ballAnimator == null)
             {
                 _ballAnimator = GetComponent<BallAnimator>();
+            }
+
+            if (_ballSpriteHandler == null)
+            {
+                _ballSpriteHandler = GetComponent<BallSpriteHandler>();
+            }
+
+            if (_ballParticleHandler == null)
+            {
+                _ballParticleHandler = GetComponent<BallParticleHandler>();
+            }
+
+            if (_ballTrailHandler == null)
+            {
+                _ballTrailHandler = GetComponent<BallTrailHandler>();
             }
         }
 
@@ -58,6 +77,24 @@ namespace _Game.BallSystem
             if (_tile != null)
             {
                 _tile.Paint();
+            }
+        }
+
+        public void SetPaintColor(ColorType colorType)
+        {
+            if (_ballSpriteHandler != null)
+            {
+                _ballSpriteHandler.SetPaintColor(colorType);
+            }
+
+            if (_ballParticleHandler != null)
+            {
+                _ballParticleHandler.SetPaintColor(colorType);
+            }
+
+            if (_ballTrailHandler != null)
+            {
+                _ballTrailHandler.SetPaintColor(colorType);
             }
         }
 
