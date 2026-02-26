@@ -7,7 +7,9 @@
 [Tt]emp/
 [Oo]bj/
 /[Bb]uild/
-/[Bb]uilds/
+!/[Bb]uilds/
+[Bb]uilds/*
+![Bb]uilds/*.apk
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
 *.log
@@ -57,8 +59,9 @@ ExportedObj/
 # Unity3D generated file on crash reports
 sysinfo.txt
 
-# Builds
+# Builds (except Builds folder apk)
 *.apk
+!Builds/*.apk
 *.aab
 *.unitypackage
 *.unitypackage.meta

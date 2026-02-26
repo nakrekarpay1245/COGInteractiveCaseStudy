@@ -15,7 +15,7 @@ MonoBehaviour:
   _gridSize: {x: 4, y: 4}
   _ballSpeed: 20
   _levelColor: 1
-  _cameraOrthoSize: 7
+  _cameraOrthoSize: 6
   _floorSize: {x: 3, y: 3}
   _ballPositions:
   - {x: 0, y: 0}
