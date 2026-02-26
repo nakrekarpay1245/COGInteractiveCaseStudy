@@ -15,8 +15,8 @@ Kurallar:
 - Kod yalnızca İngilizce dilinde yazılmalıdır.
 - Kod okunurluğu yüksek olmalıdır.
 - TriInspector ve Unity'nin sunduğu attribute’lar yalnızca gerektiği yerlerde kullanılmalıdır.
-- DOTween ve TriInspector paketleri yalnızca performans, SOLID ve OOP prensipleri ihlal edilmeyecek şekilde  ve gerektiği yerlerde kullanılmalıdır.
-- DOTeen kullanılan yerlerde SetAutoKill ve SetLink gibi önlemler alınmalıdır.
+- PrimeTween ve TriInspector paketleri yalnızca performans, SOLID ve OOP prensipleri ihlal edilmeyecek şekilde  ve gerektiği yerlerde kullanılmalıdır.
+- PrimeTween kullanılan yerlerde SetAutoKill ve SetLink gibi önlemler alınmalıdır.
 - namespace ve klasör yapısına dikkat edilmelidir
 - var kullanılmamalı sınıf adı veya değişken tipi ne ise o yazılmalı
 - Tüm kod dosyaları Assets/_Game/Scripts altında olsun
