@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Floor
+    uniqueID: 2944288007
+    locked: 0
+  - name: TileBackgorund
+    uniqueID: 1900343193
+    locked: 0
+  - name: TilePaint
+    uniqueID: 1799273193
+    locked: 0
+  - name: Obstacle
+    uniqueID: 110750243
+    locked: 0
+  - name: VFX
+    uniqueID: 795796159
+    locked: 0
+  - name: Ball
+    uniqueID: 157871249
+    locked: 0

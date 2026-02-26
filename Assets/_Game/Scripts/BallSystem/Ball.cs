@@ -17,9 +17,20 @@ namespace _Game.BallSystem
         [SerializeField, ReadOnly] private TileGrid _tileGrid;
         [SerializeField, ReadOnly] private Tile _tile;
 
+        [Title("Components")]
+        [SerializeField] private BallAnimator _ballAnimator;
+
         private Coroutine _moveCoroutine;
 
         public Vector2 GridPosition { get => _gridPosition; set => _gridPosition = value; }
+
+        void Awake()
+        {
+            if (_ballAnimator == null)
+            {
+                _ballAnimator = GetComponent<BallAnimator>();
+            }
+        }
 
         public void Initialize(TileGrid tileGrid, float speed)
         {
@@ -62,6 +73,11 @@ namespace _Game.BallSystem
             }
             _tile = null;
 
+            if (_ballAnimator != null)
+            {
+                _ballAnimator.AnimateMovement(direction);
+            }
+
             Vector3 destinationPosition = path[path.Count - 1];
             Tile destinationTile = _tileGrid.ClosestTile(destinationPosition);
             if (destinationTile != null)
@@ -76,11 +92,11 @@ namespace _Game.BallSystem
         private IEnumerator MoveCoroutine(List<Vector3> path)
         {
             int currentPathIndex = 0;
-            
+
             Vector3[] pathArray = path.ToArray();
             float totalDistance = CalculatePathDistance(path);
             float duration = totalDistance / _speed;
-            
+
             Tween moveTween = null;
             moveTween = transform.DOPath(pathArray, duration, PathType.Linear)
                 .SetEase(Ease.Linear)
@@ -101,6 +117,11 @@ namespace _Game.BallSystem
                 });
 
             yield return moveTween.WaitForCompletion();
+
+            if (_ballAnimator != null)
+            {
+                _ballAnimator.ResetScale();
+            }
 
             _moveCoroutine = null;
         }
