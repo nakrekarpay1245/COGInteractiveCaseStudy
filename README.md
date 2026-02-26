@@ -78,6 +78,8 @@ Assets/_Game/
 - **Grid Size:** Set width and height (e.g., 5x5, 7x7)
 - **Ball Speed:** Movement speed (default: 5.0)
 - **Level Color:** Choose from predefined color palette
+- **Camera Ortho Size:** Adjust camera zoom for different grid sizes
+- **Floor Size:** Set floor dimensions for visual appearance
 
 **Visual Grid Editor:**
 - **● Button:** Ball placement mode (click tiles to add/remove balls)
@@ -86,6 +88,7 @@ Assets/_Game/
 - **← Button:** Undo last action
 - **→ Button:** Redo last undone action
 - **Reset to Default:** Clear all placements and restore base settings
+- **Check Solvability:** Verify if the level can be completed (all tiles painted)
 
 **Adding Level to Game:**
 1. Open `Assets/_Game/Scenes/MainScene`
@@ -138,7 +141,15 @@ Positions:
 ## Editor Tools
 
 ### Level Manager Window
-Access via Unity Toolbar for quick level switching during development.
+- Access via `Window > Level Manager` in Unity top menu
+- View all levels in a list with quick selection
+- Create new levels with auto-incrementing names
+- Duplicate existing levels
+- Delete levels with confirmation
+- Reset selected level to default configuration
+- Check solvability of selected level
+- Clear PlayerPrefs for testing
+- Full visual editor embedded in the window
 
 ### Level Selector Toolbar
 Switch between levels in Play mode for rapid testing.
