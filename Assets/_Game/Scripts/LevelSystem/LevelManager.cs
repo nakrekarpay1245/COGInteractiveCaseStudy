@@ -103,9 +103,10 @@ namespace _Game.LevelSystem
         private void InitializeGrid()
         {            
             LevelDataSO currentLevel = _levelList[_currentLevelIndex];
-            Color levelColor = _colorManager.GetColor(currentLevel.LevelColor);
+            ColorType levelColor = currentLevel.LevelColor;
             
             _tileGrid.Initialize(currentLevel.GridSize, currentLevel.LevelColor, _tileSpawner);
+            _tileGrid.SetLevelColor(levelColor);
             _tileGridFrame.Initialize(_tileGrid);
 
             _gridPathfinding = new GridPathfinding();
@@ -115,8 +116,8 @@ namespace _Game.LevelSystem
 
             _tileGrid.UpdateFreeTiles();
 
-            _progressionManager.Initialize(levelColor, _tileGrid);
-            _progressionBar.Initialize(levelColor);
+            _progressionManager.Initialize(_colorManager.GetColor(levelColor), _tileGrid);
+            _progressionBar.Initialize(_colorManager.GetColor(levelColor));
 
             _progressionManager.OnProgressCompleted += OnProgressCompleted;
 

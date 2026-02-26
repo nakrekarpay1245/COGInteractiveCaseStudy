@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSize: {x: 5, y: 5}
   _ballSpeed: 20
-  _levelColor: 0
+  _levelColor: 1
   _ballPositions:
   - {x: 0, y: 0}
   _obstaclePositions: []

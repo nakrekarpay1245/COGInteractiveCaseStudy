@@ -31,11 +31,9 @@ namespace _Game.Editor
                     return Color.green;
                 case ColorType._4Yellow:
                     return Color.yellow;
-                case ColorType._5Orange:
-                    return new Color(1f, 0.5f, 0f);
-                case ColorType._6Purple:
+                case ColorType._5Purple:
                     return new Color(0.5f, 0f, 1f);
-                case ColorType._7Pink:
+                case ColorType._6Pink:
                     return new Color(1f, 0.4f, 0.7f);
                 case ColorType._0None:
                 default:

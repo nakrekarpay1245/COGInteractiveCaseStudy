@@ -7,8 +7,7 @@ namespace _Game.ColorSystem
         _2Blue,
         _3Green,
         _4Yellow,
-        _5Orange,
-        _6Purple,
-        _7Pink
+        _5Purple,
+        _6Pink
     }
 }

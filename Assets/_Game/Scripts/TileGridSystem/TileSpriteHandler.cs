@@ -1,5 +1,6 @@
 using _Game.ColorSystem;
 using _Game.LevelSystem;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _Game.TileGridSystem
@@ -8,6 +9,11 @@ namespace _Game.TileGridSystem
     {
         [SerializeField] private SpriteRenderer _default;
         [SerializeField] private SpriteRenderer _paint;
+        [SerializeField] private float _paintDuration = 0.2f;
+        [SerializeField] private float _paintScale = 0.6f;
+        [SerializeField] private Ease _paintEase = Ease.OutBack;
+
+        private ColorType _colorType;
 
         public void Initialize()
         {
@@ -16,19 +22,19 @@ namespace _Game.TileGridSystem
 
         private void ResetSpriteStates()
         {
-            _default.enabled = true;
-            _paint.enabled = false;
+            _default.transform.localScale = Vector3.one * _paintScale;
+            _paint.transform.localScale = Vector3.zero;
         }
 
         public void SetPaintColor(ColorType colorType)
         {
+            _colorType = colorType;
             _paint.color = LevelManager.Instance.ColorManager.GetColor(colorType);
         }
 
         public void Paint()
         {
-            _default.enabled = false;
-            _paint.enabled = true;
+            _paint.transform.DOScale(_paintScale, _paintDuration).SetEase(_paintEase).SetLink(gameObject).SetAutoKill(true);
         }
     }
 }

@@ -75,8 +75,14 @@ namespace _Game.TileGridSystem
                     RichLogger.LogError($"Tile name '{tileName}' is not in correct format (Tile [x,y])");
                 }
             }
+        }
 
-            SetPaintColor(colorType);
+        public void SetLevelColor(ColorType colorType)
+        {
+            foreach (Tile tile in _tileGrid)
+            {
+                tile.SetPaintColor(colorType);
+            }
         }
 
         public void UpdateFreeTiles()
@@ -92,13 +98,7 @@ namespace _Game.TileGridSystem
             }
         }
 
-        private void SetPaintColor(ColorType colorType)
-        {
-            foreach (Tile tile in _tileGrid)
-            {
-                tile.SetPaintColor(colorType);
-            }
-        }
+
 
         [Button]
         private void ClearTileGrid()
