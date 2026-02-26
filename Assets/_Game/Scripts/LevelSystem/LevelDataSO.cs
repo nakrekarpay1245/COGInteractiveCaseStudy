@@ -15,6 +15,10 @@ namespace _Game.LevelSystem
         [SerializeField] private float _ballSpeed = 5f;
         [Header("Paint Configuration")]
         [SerializeField] private ColorType _levelColor = ColorType._0None;
+        [Header("Camera Settings")]
+        [SerializeField] private float _cameraOrthoSize = 5f;
+        [Header("Floor Settings")]
+        [SerializeField] private Vector2 _floorSize = new Vector2(10f, 10f);
         
         [Title("Positions")]
         [SerializeField] private List<Vector2Int> _ballPositions;
@@ -23,6 +27,8 @@ namespace _Game.LevelSystem
         public Vector2Int GridSize { get => _gridSize; private set => _gridSize = value; }
         public float BallSpeed { get => _ballSpeed; private set => _ballSpeed = value; }
         public ColorType LevelColor { get => _levelColor; private set => _levelColor = value; }
+        public float CameraOrthoSize { get => _cameraOrthoSize; private set => _cameraOrthoSize = value; }
+        public Vector2 FloorSize { get => _floorSize; private set => _floorSize = value; }
         public List<Vector2Int> BallPositions { get => _ballPositions; }
         public List<Vector2Int> ObstaclePositions { get => _obstaclePositions; }
     }

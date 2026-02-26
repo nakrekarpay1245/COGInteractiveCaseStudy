@@ -15,6 +15,12 @@ MonoBehaviour:
   _gridSize: {x: 5, y: 5}
   _ballSpeed: 20
   _levelColor: 6
+  _cameraOrthoSize: 7
+  _floorSize: {x: 3, y: 3}
   _ballPositions:
   - {x: 0, y: 0}
-  _obstaclePositions: []
+  _obstaclePositions:
+  - {x: 2, y: 0}
+  - {x: 2, y: 1}
+  - {x: 2, y: 2}
+  - {x: 2, y: 3}

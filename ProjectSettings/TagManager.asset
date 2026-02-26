@@ -44,6 +44,9 @@ TagManager:
   - name: Floor
     uniqueID: 2944288007
     locked: 0
+  - name: TileFrame
+    uniqueID: 797292709
+    locked: 0
   - name: TileBackgorund
     uniqueID: 1900343193
     locked: 0

@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Game.BallSystem;
+using _Game.CameraSystem;
 using _Game.ColorSystem;
 using _Game.Core;
+using _Game.FloorSystem;
 using _Game.ObstacleSystem;
 using _Game.ProgressionSystem;
 using _Game.TileGridSystem;
@@ -32,6 +34,8 @@ namespace _Game.LevelSystem
         [SerializeField] private ColorManager _colorManager;
         [SerializeField] private ProgressionManager _progressionManager;
         [SerializeField] private ProgressionBar _progressionBar;
+        [SerializeField] private CameraManager _cameraManager;
+        [SerializeField] private FloorManager _floorManager;
         
         [Title("Level Data")]
         [SerializeField] private List<LevelDataSO> _levelList;
@@ -104,6 +108,16 @@ namespace _Game.LevelSystem
         {            
             LevelDataSO currentLevel = _levelList[_currentLevelIndex];
             ColorType levelColor = currentLevel.LevelColor;
+            
+            if (_cameraManager != null)
+            {
+                _cameraManager.SetOrthoSize(currentLevel.CameraOrthoSize);
+            }
+            
+            if (_floorManager != null)
+            {
+                _floorManager.Initialize(currentLevel.FloorSize);
+            }
             
             _tileGrid.Initialize(currentLevel.GridSize, currentLevel.LevelColor, _tileSpawner);
             _tileGrid.SetLevelColor(levelColor);

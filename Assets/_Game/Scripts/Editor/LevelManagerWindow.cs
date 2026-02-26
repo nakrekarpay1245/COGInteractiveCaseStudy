@@ -280,6 +280,8 @@ namespace _Game.Editor.LevelEditor
             serializedLevel.FindProperty("_gridSize").vector2IntValue = baseLevel.GridSize;
             serializedLevel.FindProperty("_ballSpeed").floatValue = baseLevel.BallSpeed;
             serializedLevel.FindProperty("_levelColor").enumValueIndex = (int)baseLevel.LevelColor;
+            serializedLevel.FindProperty("_cameraOrthoSize").floatValue = baseLevel.CameraOrthoSize;
+            serializedLevel.FindProperty("_floorSize").vector2Value = baseLevel.FloorSize;
             
             SerializedProperty ballPositionsProp = serializedLevel.FindProperty("_ballPositions");
             ballPositionsProp.ClearArray();

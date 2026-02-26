@@ -12,6 +12,8 @@ namespace _Game.Editor.LevelEditor
         private SerializedProperty _gridSizeProp;
         private SerializedProperty _ballSpeedProp;
         private SerializedProperty _levelColorProp;
+        private SerializedProperty _cameraOrthoSizeProp;
+        private SerializedProperty _floorSizeProp;
         private SerializedProperty _ballPositionsProp;
         private SerializedProperty _obstaclePositionsProp;
         private PlacementMode _currentMode = PlacementMode.None;
@@ -35,6 +37,8 @@ namespace _Game.Editor.LevelEditor
             _gridSizeProp = serializedObject.FindProperty("_gridSize");
             _ballSpeedProp = serializedObject.FindProperty("_ballSpeed");
             _levelColorProp = serializedObject.FindProperty("_levelColor");
+            _cameraOrthoSizeProp = serializedObject.FindProperty("_cameraOrthoSize");
+            _floorSizeProp = serializedObject.FindProperty("_floorSize");
             _ballPositionsProp = serializedObject.FindProperty("_ballPositions");
             _obstaclePositionsProp = serializedObject.FindProperty("_obstaclePositions");
         }
@@ -302,6 +306,8 @@ namespace _Game.Editor.LevelEditor
             _gridSizeProp.vector2IntValue = baseLevel.GridSize;
             _ballSpeedProp.floatValue = baseLevel.BallSpeed;
             _levelColorProp.enumValueIndex = (int)baseLevel.LevelColor;
+            _cameraOrthoSizeProp.floatValue = baseLevel.CameraOrthoSize;
+            _floorSizeProp.vector2Value = baseLevel.FloorSize;
             
             _ballPositionsProp.ClearArray();
             if (baseLevel.BallPositions != null)
