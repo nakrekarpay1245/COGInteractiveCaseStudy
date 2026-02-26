@@ -9,6 +9,9 @@ namespace _Game.Editor.LevelEditor
     public class LevelDataSOEditor : UnityEditor.Editor
     {
         private LevelDataSO _levelData;
+        private SerializedProperty _gridSizeProp;
+        private SerializedProperty _ballSpeedProp;
+        private SerializedProperty _levelColorProp;
         private SerializedProperty _ballPositionsProp;
         private SerializedProperty _obstaclePositionsProp;
         private PlacementMode _currentMode = PlacementMode.None;
@@ -29,6 +32,9 @@ namespace _Game.Editor.LevelEditor
         private void OnEnable()
         {
             _levelData = (LevelDataSO)target;
+            _gridSizeProp = serializedObject.FindProperty("_gridSize");
+            _ballSpeedProp = serializedObject.FindProperty("_ballSpeed");
+            _levelColorProp = serializedObject.FindProperty("_levelColor");
             _ballPositionsProp = serializedObject.FindProperty("_ballPositions");
             _obstaclePositionsProp = serializedObject.FindProperty("_obstaclePositions");
         }
@@ -73,7 +79,10 @@ namespace _Game.Editor.LevelEditor
             
             if (GUILayout.Button("Reset to Default", GUILayout.Width(BUTTON_SIZE * 2), GUILayout.Height(BUTTON_SIZE)))
             {
-                ResetToDefault();
+                if (EditorUtility.DisplayDialog("Reset to Default", "This will reset the level to LevelData_Base configuration. Continue?", "Yes", "No"))
+                {
+                    ResetToDefault();
+                }
             }
             
             GUILayout.FlexibleSpace();
@@ -278,15 +287,44 @@ namespace _Game.Editor.LevelEditor
         
         private void ResetToDefault()
         {
+            LevelDataSO baseLevel = Resources.Load<LevelDataSO>("_Data/Levels/LevelData_Base");
+            if (baseLevel == null)
+            {
+                Debug.LogWarning("LevelData_Base not found in Resources/_Data/Levels/");
+                return;
+            }
+            
             SaveState();
             _redoStack.Clear();
             
             serializedObject.Update();
             
+            _gridSizeProp.vector2IntValue = baseLevel.GridSize;
+            _ballSpeedProp.floatValue = baseLevel.BallSpeed;
+            _levelColorProp.enumValueIndex = (int)baseLevel.LevelColor;
+            
             _ballPositionsProp.ClearArray();
+            if (baseLevel.BallPositions != null)
+            {
+                foreach (Vector2Int pos in baseLevel.BallPositions)
+                {
+                    _ballPositionsProp.arraySize++;
+                    _ballPositionsProp.GetArrayElementAtIndex(_ballPositionsProp.arraySize - 1).vector2IntValue = pos;
+                }
+            }
+            
             _obstaclePositionsProp.ClearArray();
+            if (baseLevel.ObstaclePositions != null)
+            {
+                foreach (Vector2Int pos in baseLevel.ObstaclePositions)
+                {
+                    _obstaclePositionsProp.arraySize++;
+                    _obstaclePositionsProp.GetArrayElementAtIndex(_obstaclePositionsProp.arraySize - 1).vector2IntValue = pos;
+                }
+            }
             
             serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(_levelData);
         }
         
         private enum PlacementMode

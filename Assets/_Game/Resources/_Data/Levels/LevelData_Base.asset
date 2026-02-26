@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: LevelData_Base
   m_EditorClassIdentifier: 
   _gridSize: {x: 2, y: 2}
+  _ballSpeed: 5
+  _levelColor: 0
+  _ballPositions: []
+  _obstaclePositions: []
