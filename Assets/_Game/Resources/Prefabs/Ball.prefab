@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 157871249
   m_SortingLayer: 7
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: cc2cd65f787665243b9fa6d4fe82228b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 157871249
   m_SortingLayer: 7
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 63c736d2cad607245b21cda1e573da30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -225,7 +225,6 @@ MonoBehaviour:
   _tile: {fileID: 0}
   _ballAnimator: {fileID: 131237088678301038}
   _ballSpriteHandler: {fileID: 3526260523924670998}
-  _ballParticleHandler: {fileID: 0}
   _ballTrailHandler: {fileID: 1059669312723480356}
 --- !u!114 &131237088678301038
 MonoBehaviour:
