@@ -8,7 +8,7 @@ A 2D grid-based puzzle game built with Unity 2022.3.62f2 featuring dynamic pathf
 - **Render Pipeline:** Universal Render Pipeline (URP) 14.0.12
 - **Architecture:** SOLID principles with modular system design
 - **Key Packages:**
-  - DOTween (Animation)
+  - PrimeTween (Animation)
   - Tri-Inspector (Enhanced Inspector)
   - Unity Toolbar Extender (Editor Tools)
 
@@ -46,7 +46,7 @@ Assets/_Game/
 - Obstacle detection and collision handling
 
 ### Ball System
-- Smooth DOTween-based movement
+- Smooth PrimeTween-based movement
 - Automatic pathfinding to grid boundaries
 - Multi-ball support with collision avoidance
 - Visual feedback with scale animations
@@ -210,7 +210,7 @@ All code follows these principles:
 ## Performance Considerations
 
 - Grid pathfinding is optimized with aggressive inlining
-- DOTween animations use SetAutoKill and SetLink
+- PrimeTween animations use SetAutoKill and SetLink
 - Object pooling for particles and audio
 - Efficient tile lookup with 2D array structure
 
