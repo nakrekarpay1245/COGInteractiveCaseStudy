@@ -57,32 +57,41 @@ Assets/_Game/
 - Undo/redo support in editor
 - Drag-and-drop tile placement
 
-## How to Create Levels
+## Level Editor Guide
 
-### Method 1: Using the Visual Editor (Recommended)
+### Opening the Level Editor
 
-1. **Create a New Level:**
-   - Navigate to `Assets/_Game/Resources/_Data/Levels/`
-   - Right-click → `Create > Game > Level Data`
-   - Name it following the pattern: `LevelData_XX` (e.g., `LevelData_02`)
+**Option 1: Create New Level**
+1. Navigate to `Assets/_Game/Resources/_Data/Levels/`
+2. Right-click → `Create > Game > Level Data`
+3. Name it: `LevelData_XX` (e.g., `LevelData_02`)
+4. Select the created asset to open the editor in Inspector
 
-2. **Configure Level Settings:**
-   - **Grid Size:** Set the grid dimensions (e.g., 5x5, 7x7)
-   - **Ball Speed:** Adjust movement speed (default: 5.0)
-   - **Level Color:** Choose from predefined color types
+**Option 2: Edit Existing Level**
+1. Navigate to `Assets/_Game/Resources/_Data/Levels/`
+2. Click on any existing `LevelData_XX` asset
+3. The visual editor appears in the Inspector panel
 
-3. **Design the Level:**
-   - Click the **●** button to enter Ball placement mode
-   - Click the **■** button to enter Obstacle placement mode
-   - Click on grid tiles to place/remove elements
-   - Drag across tiles for quick placement
-   - Use **←** and **→** buttons for undo/redo
-   - Click **Reset to Default** to restore base configuration
+### Using the Level Editor
 
-4. **Add to Level List:**
-   - Open the main scene
-   - Select `LevelManager` GameObject
-   - Add your new level to the `Level List` array
+**Basic Configuration:**
+- **Grid Size:** Set width and height (e.g., 5x5, 7x7)
+- **Ball Speed:** Movement speed (default: 5.0)
+- **Level Color:** Choose from predefined color palette
+
+**Visual Grid Editor:**
+- **● Button:** Ball placement mode (click tiles to add/remove balls)
+- **■ Button:** Obstacle placement mode (click tiles to add/remove obstacles)
+- **Click & Drag:** Quick placement across multiple tiles
+- **← Button:** Undo last action
+- **→ Button:** Redo last undone action
+- **Reset to Default:** Clear all placements and restore base settings
+
+**Adding Level to Game:**
+1. Open `Assets/_Game/Scenes/MainScene`
+2. Select `LevelManager` GameObject in Hierarchy
+3. In Inspector, add your level to the `Level List` array
+4. Set `Editor Start Level Index` to test your level
 
 ### Method 2: Manual Configuration
 
@@ -156,12 +165,36 @@ All code follows these principles:
 4. Press Play to test existing levels
 5. Create new levels using the visual editor
 
-## Testing Levels
+## Special Controls & Features
+
+### In-Game Controls
+- **Mouse Click:** Select and move balls
+- **ESC:** Pause menu / Return to main menu
+
+### Editor Toolbar Features
+
+**Level Manager Window:**
+- Access via Unity top toolbar
+- Quick level switching during development
+- Jump to any level instantly
+
+**Level Selector Toolbar:**
+- Available in Play mode
+- Switch between levels without stopping playback
+- Rapid iteration testing
+
+**Time Scale Toolbar:**
+- Adjust game speed (0.5x, 1x, 2x, 3x)
+- Debug slow-motion or fast-forward
+- Test timing-sensitive mechanics
+
+### Testing Levels
 
 1. Select `LevelManager` in the scene
 2. Set `Editor Start Level Index` to your level's index
 3. Enter Play mode
 4. Use toolbar buttons to switch between levels
+5. Adjust time scale for detailed testing
 
 ## Performance Considerations
 
@@ -169,6 +202,35 @@ All code follows these principles:
 - DOTween animations use SetAutoKill and SetLink
 - Object pooling for particles and audio
 - Efficient tile lookup with 2D array structure
+
+## Known Issues & Limitations
+
+### Current Limitations
+- Maximum grid size limited by screen resolution and performance
+- Level editor undo/redo has a fixed history size
+- No runtime level validation (ensure paths are not completely blocked)
+
+### Incomplete Features
+- No in-game level editor (editor-only functionality)
+- No automatic pathfinding validation in editor
+- No level difficulty rating system
+
+### Workarounds
+- Always test levels in Play mode to verify solvability
+- Use smaller grid sizes (4x4 to 8x8) for optimal performance
+- Manually verify that balls have valid paths to grid edges
+
+## Development Time
+
+**Total Time Spent:** ~40-50 hours
+
+**Breakdown:**
+- Core Systems (Grid, Ball, Pathfinding): ~15 hours
+- Level System & Editor: ~10 hours
+- UI & Progression: ~8 hours
+- Audio & Particles: ~5 hours
+- Polish & Optimization: ~7 hours
+- Documentation: ~3 hours
 
 ---
 
