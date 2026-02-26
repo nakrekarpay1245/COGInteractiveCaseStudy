@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using _Game.Input;
 using _Game.TileGridSystem;
-using _Game.Utilities;
 using UnityEngine;
 
 namespace _Game.BallSystem
@@ -14,10 +13,10 @@ namespace _Game.BallSystem
         private BallSpawner _ballSpawner;
         private List<Ball> _spawnedBalls;
         private GridPathfinding _gridPathfinding;
+        private float _ballSpeed;
 
         private void Awake()
         {
-            _ballSpawner = BallSpawner.Instance;
             _spawnedBalls = new List<Ball>();
         }
 
@@ -82,9 +81,11 @@ namespace _Game.BallSystem
             }
         }
 
-        public void Initialize(List<Vector2Int> positions, TileGrid tileGrid, GridPathfinding gridPathfinding)
+        public void Initialize(List<Vector2Int> positions, TileGrid tileGrid, GridPathfinding gridPathfinding, BallSpawner ballSpawner, float ballSpeed)
         {
             _gridPathfinding = gridPathfinding;
+            _ballSpawner = ballSpawner;
+            _ballSpeed = ballSpeed;
             ClearExistingBalls();
             SpawnBalls(positions, tileGrid);
         }
@@ -98,7 +99,7 @@ namespace _Game.BallSystem
 
                 Vector2 worldPosition = tile.transform.position;
                 Ball ball = _ballSpawner.SpawnBall(worldPosition, transform);
-                ball.Initialize(tileGrid);
+                ball.Initialize(tileGrid, _ballSpeed);
                 _spawnedBalls.Add(ball);
             }
         }

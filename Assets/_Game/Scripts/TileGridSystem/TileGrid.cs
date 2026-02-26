@@ -15,6 +15,7 @@ namespace _Game.TileGridSystem
         [Header("Grid Scale")]
         [SerializeField, ReadOnly] private Vector2Int _gridSize = new Vector2Int(2, 2);
         [SerializeField] private bool _centerGridAtOrigin = false;
+        [SerializeField, ReadOnly] private TileSpawner _tileSpawner;
 
         public Vector2Int GridSize { get => _gridSize; set => _gridSize = value; }
 
@@ -36,9 +37,10 @@ namespace _Game.TileGridSystem
          ) - (Vector2.right * 0.5f);
 
         [Button]
-        public void Initialize(Vector2Int gridSize, ColorType colorType)
+        public void Initialize(Vector2Int gridSize, ColorType colorType, TileSpawner tileSpawner)
         {
             _gridSize = gridSize;
+            _tileSpawner = tileSpawner;
 
             ClearTileGrid();
             CreateAllTiles();
@@ -137,7 +139,7 @@ namespace _Game.TileGridSystem
         {
             Vector2 tilePosition = GetTilePosition(x, y);
 
-            Tile tile = TileSpawner.Instance.SpawnTile(tilePosition, transform);
+            Tile tile = _tileSpawner.SpawnTile(tilePosition, transform);
 
             _tileGrid[x, y] = tile;
             tile.name = $"Tile [{x},{y}]";
@@ -275,7 +277,7 @@ namespace _Game.TileGridSystem
         {
             Vector2 tilePosition = GetTilePosition(x, y);
 
-            Tile tile = FindAnyObjectByType<TileSpawner>().SpawnTileInEditor(tilePosition, transform);
+            Tile tile = _tileSpawner.SpawnTileInEditor(tilePosition, transform);
 
             _tileGrid[x, y] = tile;
             tile.name = $"Tile [{x},{y}]";

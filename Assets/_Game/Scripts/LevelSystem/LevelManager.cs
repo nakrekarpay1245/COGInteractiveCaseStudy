@@ -18,10 +18,17 @@ namespace _Game.LevelSystem
         [Header("Grid")]
         [SerializeField] private TileGrid _tileGrid;
         [SerializeField] private TileGridFrame _tileGridFrame;
+        [SerializeField] private TileSpawner _tileSpawner;
+        
+        [Header("Ball")]
+        [SerializeField] private BallManager _ballManager;
+        [SerializeField] private BallSpawner _ballSpawner;
+        
+        [Header("Obstacle")]
+        [SerializeField] private ObstacleManager _obstacleManager;
+        [SerializeField] private ObstacleSpawner _obstacleSpawner;
         
         [Header("Managers")]
-        [SerializeField] private BallManager _ballManager;
-        [SerializeField] private ObstacleManager _obstacleManager;
         [SerializeField] private ColorManager _colorManager;
         [SerializeField] private ProgressionManager _progressionManager;
         [SerializeField] private ProgressionBar _progressionBar;
@@ -98,13 +105,13 @@ namespace _Game.LevelSystem
             LevelDataSO currentLevel = _levelList[_currentLevelIndex];
             Color levelColor = _colorManager.GetColor(currentLevel.LevelColor);
             
-            _tileGrid.Initialize(currentLevel.GridSize, currentLevel.LevelColor);
+            _tileGrid.Initialize(currentLevel.GridSize, currentLevel.LevelColor, _tileSpawner);
             _tileGridFrame.Initialize(_tileGrid);
 
             _gridPathfinding = new GridPathfinding();
             _gridPathfinding.Initialize(_tileGrid);
 
-            _obstacleManager.Initialize(currentLevel.ObstaclePositions, _tileGrid);
+            _obstacleManager.Initialize(currentLevel.ObstaclePositions, _tileGrid, _obstacleSpawner);
 
             _tileGrid.UpdateFreeTiles();
 
@@ -113,7 +120,7 @@ namespace _Game.LevelSystem
 
             _progressionManager.OnProgressCompleted += OnProgressCompleted;
 
-            _ballManager.Initialize(currentLevel.BallPositions, _tileGrid, _gridPathfinding);
+            _ballManager.Initialize(currentLevel.BallPositions, _tileGrid, _gridPathfinding, _ballSpawner, currentLevel.BallSpeed);
         }
 
         private void OnDisable()

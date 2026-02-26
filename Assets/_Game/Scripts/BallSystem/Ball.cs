@@ -12,7 +12,7 @@ namespace _Game.BallSystem
     {
         [Title("Ball")]
         [SerializeField, ReadOnly] private Vector2 _gridPosition;
-        [SerializeField] private float _moveDuration = 0.3f;
+        [SerializeField, ReadOnly] private float _speed;
 
         [SerializeField, ReadOnly] private TileGrid _tileGrid;
         [SerializeField, ReadOnly] private Tile _tile;
@@ -21,9 +21,10 @@ namespace _Game.BallSystem
 
         public Vector2 GridPosition { get => _gridPosition; set => _gridPosition = value; }
 
-        public void Initialize(TileGrid tileGrid)
+        public void Initialize(TileGrid tileGrid, float speed)
         {
             _tileGrid = tileGrid;
+            _speed = speed;
             SetTileReference();
             PaintStartingTile();
         }
@@ -77,8 +78,11 @@ namespace _Game.BallSystem
             int currentPathIndex = 0;
             
             Vector3[] pathArray = path.ToArray();
+            float totalDistance = CalculatePathDistance(path);
+            float duration = totalDistance / _speed;
+            
             Tween moveTween = null;
-            moveTween = transform.DOPath(pathArray, _moveDuration * path.Count, PathType.Linear)
+            moveTween = transform.DOPath(pathArray, duration, PathType.Linear)
                 .SetEase(Ease.Linear)
                 .SetAutoKill(true)
                 .SetLink(gameObject)
@@ -99,6 +103,16 @@ namespace _Game.BallSystem
             yield return moveTween.WaitForCompletion();
 
             _moveCoroutine = null;
+        }
+
+        private float CalculatePathDistance(List<Vector3> path)
+        {
+            float distance = 0f;
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                distance += Vector3.Distance(path[i], path[i + 1]);
+            }
+            return distance;
         }
 
 #if UNITY_EDITOR

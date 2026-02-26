@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Game.BallSystem
 {
-    public class BallSpawner : Singleton<BallSpawner>
+    public class BallSpawner : MonoBehaviour
     {
         [SerializeField]
         private Ball _ballPrefab;

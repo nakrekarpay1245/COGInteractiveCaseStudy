@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce83470761415ce428fc900142994c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _obstacleSpawner: {fileID: 0}
 --- !u!1 &59953350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,7 +1120,6 @@ MonoBehaviour:
   _playTimeUI: {fileID: 2108397624}
   _progressionBar: {fileID: 0}
   _winMenu: {fileID: 886021774}
-  _loseMenu: {fileID: 0}
   _settingsMenu: {fileID: 1779436297}
   _retryMenu: {fileID: 969989008}
 --- !u!4 &332602892
@@ -2725,8 +2725,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileGrid: {fileID: 1591785621}
   _tileGridFrame: {fileID: 2029735620}
+  _tileSpawner: {fileID: 688820635}
   _ballManager: {fileID: 1835673737}
+  _ballSpawner: {fileID: 553283838}
   _obstacleManager: {fileID: 22178755}
+  _obstacleSpawner: {fileID: 2105175940}
   _colorManager: {fileID: 1530502014}
   _progressionManager: {fileID: 1610702799}
   _progressionBar: {fileID: 2011787456}
@@ -3443,6 +3446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSize: {x: 2, y: 2}
   _centerGridAtOrigin: 1
+  _tileSpawner: {fileID: 0}
   _allTiles: []
   _freeTiles: []
   _paintedTiles: []

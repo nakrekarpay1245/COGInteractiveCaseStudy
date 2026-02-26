@@ -1,10 +1,9 @@
-using _Game.Core;
 using UnityEditor;
 using UnityEngine;
 
 namespace _Game.ObstacleSystem
 {
-    public class ObstacleSpawner : Singleton<ObstacleSpawner>
+    public class ObstacleSpawner : MonoBehaviour
     {
         [SerializeField]
         private Obstacle _obstaclePrefab;

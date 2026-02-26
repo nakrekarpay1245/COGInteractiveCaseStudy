@@ -1,22 +1,19 @@
 using System.Collections.Generic;
 using _Game.TileGridSystem;
+using TriInspector;
 using UnityEngine;
 
 namespace _Game.ObstacleSystem
 {
     public class ObstacleManager : MonoBehaviour
     {
-        private ObstacleSpawner _obstacleSpawner;
+        [SerializeField, ReadOnly] private ObstacleSpawner _obstacleSpawner;
         private List<Obstacle> _spawnedObstacles;
 
-        private void Awake()
+        public void Initialize(List<Vector2Int> positions, TileGrid tileGrid, ObstacleSpawner obstacleSpawner)
         {
-            _obstacleSpawner = ObstacleSpawner.Instance;
+            _obstacleSpawner = obstacleSpawner;
             _spawnedObstacles = new List<Obstacle>();
-        }
-
-        public void Initialize(List<Vector2Int> positions, TileGrid tileGrid)
-        {
             ClearExistingObstacles();
             SpawnObstacles(positions, tileGrid);
         }

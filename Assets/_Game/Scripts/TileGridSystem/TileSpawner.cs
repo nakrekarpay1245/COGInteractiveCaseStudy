@@ -1,10 +1,9 @@
-using _Game.Core;
 using UnityEditor;
 using UnityEngine;
 
 namespace _Game.TileGridSystem
 {
-    public class TileSpawner : Singleton<TileSpawner>
+    public class TileSpawner : MonoBehaviour
     {
         [SerializeField]
         private Tile _tilePrefab;
